@@ -39,6 +39,7 @@
                 <a href="{{ route('about') }}" class="hover:text-[#5a7b6b]">About</a>
                 <a href="{{ route('home') }}#counsellors" class="hover:text-[#5a7b6b]">Counselling</a>
                 <a href="#" class="hover:text-[#5a7b6b]">Resources</a>
+                <a href="{{ route('forum.index') }}" class="hover:text-[#5a7b6b]">Forum</a>
                 <a href="{{ route('contact') }}" class="hover:text-[#5a7b6b]">Contact</a>
             @endif
         </nav>

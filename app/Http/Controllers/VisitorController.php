@@ -18,6 +18,11 @@ class VisitorController extends Controller
         return view('home', compact('counsellors', 'blogs', 'testimonials'));
     }
 
+    public function showBlog(\App\Models\Blog $blog)
+    {
+        return view('blog.show', compact('blog'));
+    }
+
     public function show(User $user)
     {
         if ($user->role !== 'counsellor') abort(404);

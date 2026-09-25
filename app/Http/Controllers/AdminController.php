@@ -106,12 +106,17 @@ class AdminController extends Controller
         return view('admin.blogs.index', compact('blogs'));
     }
 
+    public function createBlog()
+    {
+        return view('admin.blogs.create');
+    }
+
     public function storeBlog(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'link' => 'nullable|url|max:255',
+            'content' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
         
@@ -124,7 +129,7 @@ class AdminController extends Controller
         Blog::create([
             'title' => $request->title,
             'category' => $request->category,
-            'link' => $request->link,
+            'content' => $request->content,
             'image' => $imageName,
         ]);
         
@@ -137,10 +142,43 @@ class AdminController extends Controller
         return back()->with('success', 'Blog deleted successfully.');
     }
 
+    public function editBlog(Blog $blog)
+    {
+        return view('admin.blogs.edit', compact('blog'));
+    }
+
+    public function updateBlog(Request $request, Blog $blog)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+        ]);
+        
+        $blog->title = $request->title;
+        $blog->category = $request->category;
+        $blog->content = $request->content;
+        
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images/blogs'), $imageName);
+            $blog->image = $imageName;
+        }
+        
+        $blog->save();
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully.');
+    }
+
     public function testimonialsIndex()
     {
         $testimonials = Testimonial::latest()->get();
         return view('admin.testimonials.index', compact('testimonials'));
+    }
+
+    public function createTestimonial()
+    {
+        return view('admin.testimonials.create');
     }
 
     public function storeTestimonial(Request $request)
@@ -149,20 +187,12 @@ class AdminController extends Controller
             'student_name' => 'required|string|max:255',
             'course_year' => 'nullable|string|max:255',
             'content' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
-        
-        $imageName = null;
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/testimonials'), $imageName);
-        }
         
         Testimonial::create([
             'student_name' => $request->student_name,
             'course_year' => $request->course_year,
             'content' => $request->content,
-            'image' => $imageName,
         ]);
         
         return back()->with('success', 'Testimonial added successfully.');
@@ -172,5 +202,26 @@ class AdminController extends Controller
     {
         $testimonial->delete();
         return back()->with('success', 'Testimonial deleted successfully.');
+    }
+
+    public function editTestimonial(Testimonial $testimonial)
+    {
+        return view('admin.testimonials.edit', compact('testimonial'));
+    }
+
+    public function updateTestimonial(Request $request, Testimonial $testimonial)
+    {
+        $request->validate([
+            'student_name' => 'required|string|max:255',
+            'course_year' => 'nullable|string|max:255',
+            'content' => 'required|string',
+        ]);
+        
+        $testimonial->student_name = $request->student_name;
+        $testimonial->course_year = $request->course_year;
+        $testimonial->content = $request->content;
+        
+        $testimonial->save();
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully.');
     }
 }

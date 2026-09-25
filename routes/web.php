@@ -8,11 +8,13 @@ use App\Http\Controllers\CounsellorController;
 
 // Public routes
 Route::get('/', [VisitorController::class, 'index'])->name('home');
+Route::get('/blog/{blog}', [VisitorController::class, 'showBlog'])->name('blog.show');
 Route::view('/about', 'about')->name('about');
 Route::get('/counsellor/{user}', [VisitorController::class, 'show'])->name('counsellor.show')->whereNumber('user');
 Route::view('/contact', 'contact')->name('contact');
 
-// Auth routes
+Route::get('/forum', [\App\Http\Controllers\ForumController::class, 'index'])->name('forum.index');
+Route::get('/forum/{question}', [\App\Http\Controllers\ForumController::class, 'show'])->name('forum.show');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::get('/counsellor-login', [AuthController::class, 'counsellorLoginForm'])->name('counsellor.login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.post');
@@ -31,11 +33,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('/counsellors/{user}', [AdminController::class, 'destroyCounsellor'])->name('counsellors.destroy');
     
     Route::get('/blogs', [AdminController::class, 'blogsIndex'])->name('blogs.index');
+    Route::get('/blogs/create', [AdminController::class, 'createBlog'])->name('blogs.create');
     Route::post('/blogs', [AdminController::class, 'storeBlog'])->name('blogs.store');
+    Route::get('/blogs/{blog}/edit', [AdminController::class, 'editBlog'])->name('blogs.edit');
+    Route::put('/blogs/{blog}', [AdminController::class, 'updateBlog'])->name('blogs.update');
     Route::delete('/blogs/{blog}', [AdminController::class, 'destroyBlog'])->name('blogs.destroy');
     
     Route::get('/testimonials', [AdminController::class, 'testimonialsIndex'])->name('testimonials.index');
+    Route::get('/testimonials/create', [AdminController::class, 'createTestimonial'])->name('testimonials.create');
     Route::post('/testimonials', [AdminController::class, 'storeTestimonial'])->name('testimonials.store');
+    Route::get('/testimonials/{testimonial}/edit', [AdminController::class, 'editTestimonial'])->name('testimonials.edit');
+    Route::put('/testimonials/{testimonial}', [AdminController::class, 'updateTestimonial'])->name('testimonials.update');
     Route::delete('/testimonials/{testimonial}', [AdminController::class, 'destroyTestimonial'])->name('testimonials.destroy');
 });
 
@@ -52,6 +60,12 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
     Route::post('/bookings/{booking}/accept', [CounsellorController::class, 'acceptBooking'])->name('bookings.accept');
     Route::post('/bookings/{booking}/cancel', [CounsellorController::class, 'cancelBooking'])->name('bookings.cancel');
     Route::post('/bookings/{booking}/complete', [CounsellorController::class, 'completeBooking'])->name('bookings.complete');
+});
+
+// Forum authenticated routes
+Route::middleware('auth')->group(function () {
+    Route::post('/forum/question', [\App\Http\Controllers\ForumController::class, 'storeQuestion'])->name('forum.storeQuestion');
+    Route::post('/forum/{question}/answer', [\App\Http\Controllers\ForumController::class, 'storeAnswer'])->name('forum.storeAnswer');
 });
 
 // User routes
