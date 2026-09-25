@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-400: #818cf8;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-700: #4338ca;
+  --color-indigo-800: #3730a3;
+  --color-indigo-900: #312e81;
+}
+
+@layer components {
+  .glass {
+    @apply bg-[#FAF6F4]/60 backdrop-blur-lg border border-[#F9ECE1] shadow-xl rounded-2xl;
+  }
+  .glass-dark {
+    @apply bg-[#EFF1E8]/60 backdrop-blur-lg border border-[#F9ECE1] shadow-xl rounded-2xl;
+  }
+  .glass-button {
+    @apply bg-[#F9ECE1] hover:bg-[#F9ECE1]/80 text-[#333] border border-[#F9ECE1] shadow-md rounded-lg transition-all duration-300;
+  }
+  .glass-input {
+    @apply bg-[#FAF6F4]/70 backdrop-blur-sm border border-[#F9ECE1] rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-[#F9ECE1] placeholder-gray-500 text-gray-800 transition-all duration-300;
+  }
+}
+
