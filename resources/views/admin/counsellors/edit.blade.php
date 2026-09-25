@@ -32,6 +32,18 @@
                 @error('about') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="mb-4">
+                <label class="block text-[#333] font-bold mb-1">Experience (Years)</label>
+                <select name="experience" class="w-full p-2 bg-[#FAF6F4] border @error('experience') border-red-500 @else border-[#D5CBBF] @enderror rounded focus:ring-2 focus:ring-[#5a7b6b]">
+                    <option value="">Select Experience</option>
+                    <option value="0-1 years" {{ old('experience', $user->experience) == '0-1 years' ? 'selected' : '' }}>0-1 years</option>
+                    <option value="1-3 years" {{ old('experience', $user->experience) == '1-3 years' ? 'selected' : '' }}>1-3 years</option>
+                    <option value="3-5 years" {{ old('experience', $user->experience) == '3-5 years' ? 'selected' : '' }}>3-5 years</option>
+                    <option value="5-10 years" {{ old('experience', $user->experience) == '5-10 years' ? 'selected' : '' }}>5-10 years</option>
+                    <option value="10+ years" {{ old('experience', $user->experience) == '10+ years' ? 'selected' : '' }}>10+ years</option>
+                </select>
+                @error('experience') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+            </div>
+            <div class="mb-4">
                 <label class="block text-[#333] font-bold mb-1">Update Image (Max 4MB, JPG/PNG)</label>
                 <div class="flex items-center justify-center w-full">
                     <label for="image-upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-[#D5CBBF] border-dashed rounded-lg cursor-pointer bg-[#FAF6F4] hover:bg-[#F2EAE1] @error('image') border-red-500 @enderror relative overflow-hidden">
@@ -48,10 +60,14 @@
                 @error('image') <span class="text-red-500 text-xs block mt-1">{{ $message }}</span> @enderror
                 <span id="image-error" class="text-red-500 text-xs font-bold mt-1 block"></span>
             </div>
-            <div class="mb-6">
+            <div class="mb-4">
                 <label class="block text-[#333] font-bold mb-1">New Password (leave blank to keep current)</label>
                 <input type="password" name="password" class="w-full p-2 bg-[#FAF6F4] border @error('password') border-red-500 @else border-[#D5CBBF] @enderror rounded focus:ring-2 focus:ring-[#5a7b6b]" minlength="6">
                 @error('password') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+            </div>
+            <div class="mb-6">
+                <label class="block text-[#333] font-bold mb-1">Confirm New Password</label>
+                <input type="password" name="password_confirmation" class="w-full p-2 bg-[#FAF6F4] border border-[#D5CBBF] rounded focus:ring-2 focus:ring-[#5a7b6b]" minlength="6">
             </div>
             <div class="flex space-x-4">
                 <a href="{{ route('admin.counsellors.index') }}" class="w-full py-2 text-center font-bold text-[#555] bg-[#FAF6F4] border border-[#D5CBBF] hover:bg-[#E5DCD3] rounded shadow">Cancel</a>

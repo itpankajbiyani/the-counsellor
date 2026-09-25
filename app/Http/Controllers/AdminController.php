@@ -35,7 +35,8 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
+            'experience' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -51,6 +52,7 @@ class AdminController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'about' => $request->about,
+            'experience' => $request->experience,
             'image' => $imageName,
             'role' => 'counsellor',
         ]);
@@ -70,7 +72,8 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:6|confirmed',
+            'experience' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -78,6 +81,7 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->about = $request->about;
+        $user->experience = $request->experience;
         
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
