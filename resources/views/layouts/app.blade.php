@@ -94,7 +94,6 @@
         @yield('content')
     </main>
 
-    @if(!Auth::check())
     <!-- Footer Main -->
     <footer class="bg-[#F9ECE1] text-[#333] pt-16 pb-12 px-6 md:px-12 mt-16 w-full">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
@@ -150,7 +149,6 @@
             </div>
         </div>
     </div>
-    @endif
 
     <script>
         lucide.createIcons();

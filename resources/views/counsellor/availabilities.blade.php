@@ -5,7 +5,7 @@
     @include('counsellor.nav')
 
     <!-- Add Availability -->
-    <div class="bg-[#E5DCD3] text-[#333] p-6 max-w-xl mx-auto rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] text-[#333] p-6 max-w-xl mx-auto rounded-2xl shadow-lg border border-[#D5CBBF]">
         <h3 class="text-xl font-bold text-[#333] mb-4">Set Weekly Availability</h3>
         @error('availability')
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">

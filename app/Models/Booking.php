@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
-#[Fillable(['user_id', 'counsellor_id', 'date', 'start_time', 'end_time', 'status', 'cancellation_reason', 'message'])]
+#[Fillable(['user_id', 'counsellor_id', 'date', 'start_time', 'end_time', 'status', 'cancellation_reason', 'message', 'cancelled_by'])]
 class Booking extends Model
 {
     use HasFactory;

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Testimonial extends Model
+class Faq extends Model
 {
-    protected $fillable = ['student_name', 'course_year', 'content', 'is_active'];
+    protected $fillable = ['question', 'answer', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',

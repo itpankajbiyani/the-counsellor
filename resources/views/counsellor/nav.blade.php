@@ -1,4 +1,4 @@
-<div class="mt-8 mb-8 flex justify-center">
+<div class="mt-12 mb-8 flex justify-center">
     <div class="glass p-1.5 inline-flex flex-wrap justify-center gap-1 rounded-full bg-white/30 backdrop-blur-md border border-white/50 shadow-sm">
         <a href="{{ route('counsellor.bookings') }}" 
            class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2

@@ -2,12 +2,12 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="w-full bg-[#F4EDE4] border-b border-[#E5DCD3]">
+<section class="w-full bg-[#F4EDE4] border-b border-[#efefef]">
     <img src="{{ asset('images/layout/img_0_1.jpeg') }}" class="w-full h-auto" alt="Biyani Ghar - A safe space for every student to be heard">
 </section>
 
 <!-- Comfort Section -->
-<section class="w-full bg-[#FAF6F1] py-24 px-6">
+<section class="w-full bg-[#F7F2E9] py-24 px-6">
     <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
         <div class="md:w-1/2">
             <div class="flex items-center space-x-4 mb-4">
@@ -37,7 +37,7 @@
 </section>
 
 <!-- How Biyani Ghar Helps -->
-<section class="w-full bg-[#EEF2ED] py-24 px-6 border-y border-[#E2E8DF]">
+<section class="w-full bg-[#EFF1E1] py-24 px-6 border-y border-[#E2E8DF]">
     <div class="max-w-5xl mx-auto">
         <div class="text-center mb-16">
             <div class="flex items-center justify-center space-x-4 mb-4">
@@ -68,7 +68,7 @@
 </section>
 
 <!-- What brings you here today? -->
-<section class="w-full bg-[#FAF6F1] py-24 px-6">
+<section class="w-full bg-[#F6F1E9] py-24 px-6">
     <div class="max-w-6xl mx-auto text-center">
         <div class="flex items-center justify-center space-x-4 mb-4">
             <span class="w-8 h-px bg-[#B99A81]"></span>
@@ -110,7 +110,7 @@
 </section>
 
 <!-- Our Counsellors -->
-<section id="counsellors" class="w-full bg-[#F4ECE5] py-24 px-6 border-y border-[#EADBCC]">
+<section id="counsellors" class="w-full bg-[#FBF0E6] py-24 px-6 border-y border-[#EADBCC]">
     <div class="max-w-6xl mx-auto text-center">
         <div class="flex items-center justify-center space-x-4 mb-4">
             <span class="w-8 h-px bg-[#B99A81]"></span>
@@ -133,8 +133,8 @@
                         @endif
                     </div>
                     <h3 class="serif font-bold text-[#4A5D4E] mb-1">{{ $counsellor->name }}</h3>
-                    <p class="text-[0.65rem] text-[#8C7D70] uppercase tracking-wider mb-1 font-bold">Qualification</p>
-                    <p class="text-[0.65rem] text-[#8C7D70] mb-6">Experience: X years</p>
+                    <p class="text-[0.65rem] text-[#8C7D70] uppercase tracking-wider mb-1 font-bold">{{ $counsellor->qualification ?? 'Counsellor' }}</p>
+                    <p class="text-[0.65rem] text-[#8C7D70] mb-6">Experience: {{ $counsellor->experience ?? 'N/A' }} {{ ($counsellor->experience && $counsellor->experience != 'N/A') ? 'Years' : '' }}</p>
                     
                     <a href="{{ route('counsellor.show', $counsellor) }}" class="mt-auto bg-[#6E8578] text-white text-[0.65rem] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full group-hover:bg-[#4A5D4E] transition w-full shadow-sm">
                         Book Session
@@ -162,7 +162,7 @@
 </section>
 
 <!-- Activity Corner -->
-<section class="w-full bg-[#FAF6F1] py-24 px-6">
+<section class="w-full bg-[#F6F1E9] py-24 px-6">
     <div class="max-w-5xl mx-auto text-center">
         <div class="flex items-center justify-center space-x-4 mb-4">
             <span class="w-8 h-px bg-[#B99A81]"></span>
@@ -200,7 +200,7 @@
 </section>
 
 <!-- Testimonials -->
-<section class="w-full bg-[#FCF8E9] py-24 px-6 border-y border-[#F3EDD7]">
+<section class="w-full bg-[#FAEFD4] py-24 px-6 border-y border-[#F3EDD7]">
     <div class="max-w-6xl mx-auto text-center">
         <div class="flex items-center justify-center space-x-4 mb-4">
             <span class="w-8 h-px bg-[#C9B387]"></span>
@@ -221,7 +221,7 @@
                         <i data-lucide="star" class="w-4 h-4 fill-current"></i>
                     </div>
                     <p class="italic text-[#6B5D53] text-sm leading-relaxed flex-grow mb-8">
-                        "{{ $testimonial->content }}"
+                        "{!! Str::limit(strip_tags($testimonial->content), 200) !!}"
                     </p>
                     <div class="border-t border-[#F3EFE9] pt-6">
                         <div>
@@ -238,7 +238,7 @@
 </section>
 
 <!-- Mental Health Blogs -->
-<section class="w-full bg-[#FAF6F1] py-24 px-6">
+<section class="w-full bg-[#F7F2E9] py-24 px-6">
     <div class="max-w-6xl mx-auto text-center">
         <div class="flex items-center justify-center space-x-4 mb-4">
             <span class="w-8 h-px bg-[#B99A81]"></span>
@@ -276,7 +276,7 @@
 </section>
 
 <!-- FAQ Section -->
-<section class="w-full bg-[#EEF2ED] py-24 px-6 border-t border-[#E2E8DF]">
+<section class="w-full bg-[#EFF1E1] py-24 px-6 border-t border-[#E2E8DF]">
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-16">
             <div class="flex items-center justify-center space-x-4 mb-4">
@@ -288,46 +288,23 @@
         </div>
         
         <div class="space-y-4">
-            <!-- FAQ 1 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E2E8DF] flex space-x-4 items-start">
-                <div class="w-8 h-8 bg-[#DCE5DF] rounded-full flex items-center justify-center text-[#4A5D4E] flex-shrink-0 mt-1">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
+            @forelse($faqs as $faq)
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E2E8DF] flex space-x-4 items-start">
+                    <div class="w-8 h-8 bg-[#DCE5DF] rounded-full flex items-center justify-center text-[#4A5D4E] flex-shrink-0 mt-1">
+                        <i data-lucide="help-circle" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="serif font-bold text-[#4A5D4E] mb-2">{{ $faq->question }}</h4>
+                        <div class="text-sm text-[#7A6E63] leading-relaxed prose prose-sm max-w-none prose-p:my-1">
+                            {!! $faq->answer !!}
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="serif font-bold text-[#4A5D4E] mb-2">Are my details confidential?</h4>
-                    <p class="text-sm text-[#7A6E63] leading-relaxed">100% confidential. Everything you share with your counsellor stays strictly between the two of you. Biyani Ghar never discloses your identity, conversations or personal details to college staff, faculty or anyone else without your written consent.</p>
+            @empty
+                <div class="text-center text-[#7A6E63] py-8 bg-white rounded-2xl shadow-sm border border-[#E2E8DF]">
+                    No FAQs added yet.
                 </div>
-            </div>
-            <!-- FAQ 2 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E2E8DF] flex space-x-4 items-start">
-                <div class="w-8 h-8 bg-[#DCE5DF] rounded-full flex items-center justify-center text-[#4A5D4E] flex-shrink-0 mt-1">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <h4 class="serif font-bold text-[#4A5D4E] mb-2">Is counselling free for students?</h4>
-                    <p class="text-sm text-[#7A6E63] leading-relaxed">Yes, Biyani Ghar's counselling sessions are offered free of cost to all enrolled students.</p>
-                </div>
-            </div>
-            <!-- FAQ 3 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E2E8DF] flex space-x-4 items-start">
-                <div class="w-8 h-8 bg-[#DCE5DF] rounded-full flex items-center justify-center text-[#4A5D4E] flex-shrink-0 mt-1">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <h4 class="serif font-bold text-[#4A5D4E] mb-2">How do I book a session?</h4>
-                    <p class="text-sm text-[#7A6E63] leading-relaxed">Use the "Book Session" button anywhere on this page to choose a counsellor and a time that works for you.</p>
-                </div>
-            </div>
-            <!-- FAQ 4 -->
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#E2E8DF] flex space-x-4 items-start">
-                <div class="w-8 h-8 bg-[#DCE5DF] rounded-full flex items-center justify-center text-[#4A5D4E] flex-shrink-0 mt-1">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
-                </div>
-                <div>
-                    <h4 class="serif font-bold text-[#4A5D4E] mb-2">Can I reach out anonymously at first?</h4>
-                    <p class="text-sm text-[#7A6E63] leading-relaxed">Yes, you are welcome to ask general questions anonymously before deciding whether to share your name and details.</p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

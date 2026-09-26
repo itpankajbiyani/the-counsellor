@@ -7,8 +7,8 @@
         <h2 class="text-3xl font-bold text-[#333]">Add New Testimonial</h2>
     </div>
 
-    <div class="bg-[#E5DCD3] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
-        <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="bg-[#efefef] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <form id="testimonial-form" action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label class="block text-[#333] font-bold mb-1">Student Name</label>
@@ -37,7 +37,7 @@
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
-    var form = document.querySelector('form');
+    var form = document.getElementById('testimonial-form');
     form.onsubmit = function() {
         var content = document.querySelector('#content_input');
         if (quill.getText().trim().length === 0) {

@@ -4,7 +4,7 @@
 <div class="w-full max-w-6xl mx-auto">
     @include('admin.nav')
 
-    <div class="bg-[#E5DCD3] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6">
             <h3 class="text-2xl font-bold text-[#333]">All Platform Bookings</h3>
             
@@ -16,6 +16,13 @@
                             {{ $counsellor->name }}
                         </option>
                     @endforeach
+                </select>
+                <select name="status" class="p-2 border border-[#D5CBBF] rounded bg-[#FAF6F4] text-[#333]">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                 </select>
                 <button type="submit" class="bg-[#5a7b6b] text-white px-4 py-2 rounded font-bold hover:bg-[#4a6758]">Filter</button>
             </form>
@@ -54,8 +61,13 @@
                                     <span class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded font-bold uppercase text-xs">Pending</span>
                                 @elseif($booking->status === 'accepted')
                                     <span class="px-2 py-1 bg-green-200 text-green-800 rounded font-bold uppercase text-xs">Accepted</span>
+                                @elseif($booking->status === 'completed')
+                                    <span class="px-2 py-1 bg-blue-200 text-blue-800 rounded font-bold uppercase text-xs">Completed</span>
                                 @else
                                     <span class="px-2 py-1 bg-red-200 text-red-800 rounded font-bold uppercase text-xs">Cancelled</span>
+                                    @if($booking->cancelled_by)
+                                        <p class="text-[0.65rem] font-bold text-red-600 uppercase mt-1">By: {{ $booking->cancelled_by }}</p>
+                                    @endif
                                     @if($booking->cancellation_reason)
                                         <p class="text-xs mt-1 text-[#555]">"{{ $booking->cancellation_reason }}"</p>
                                     @endif

@@ -7,7 +7,7 @@
     <div class="grid md:grid-cols-3 gap-8">
         
         <!-- Add Counsellor Form -->
-        <div class="bg-[#E5DCD3] p-6 rounded-2xl shadow-lg border border-[#D5CBBF] md:col-span-1 h-fit">
+        <div class="bg-[#efefef] p-6 rounded-2xl shadow-lg border border-[#D5CBBF] md:col-span-1 h-fit">
             <h3 class="text-xl font-bold text-[#333] mb-4">Add Counsellor</h3>
             <form action="{{ route('admin.counsellors.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -27,14 +27,17 @@
                     @error('about') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
+                    <label class="block text-[#333] font-bold mb-1">Qualification</label>
+                    <input type="text" name="qualification" value="{{ old('qualification') }}" class="w-full p-2 bg-[#FAF6F4] border @error('qualification') border-red-500 @else border-[#D5CBBF] @enderror rounded focus:ring-2 focus:ring-[#5a7b6b]">
+                    @error('qualification') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                </div>
+                <div class="mb-4">
                     <label class="block text-[#333] font-bold mb-1">Experience (Years)</label>
                     <select name="experience" class="w-full p-2 bg-[#FAF6F4] border @error('experience') border-red-500 @else border-[#D5CBBF] @enderror rounded focus:ring-2 focus:ring-[#5a7b6b]">
                         <option value="">Select Experience</option>
-                        <option value="0-1 years" {{ old('experience') == '0-1 years' ? 'selected' : '' }}>0-1 years</option>
-                        <option value="1-3 years" {{ old('experience') == '1-3 years' ? 'selected' : '' }}>1-3 years</option>
-                        <option value="3-5 years" {{ old('experience') == '3-5 years' ? 'selected' : '' }}>3-5 years</option>
-                        <option value="5-10 years" {{ old('experience') == '5-10 years' ? 'selected' : '' }}>5-10 years</option>
-                        <option value="10+ years" {{ old('experience') == '10+ years' ? 'selected' : '' }}>10+ years</option>
+                        <option value="1+" {{ old('experience') == '1+' ? 'selected' : '' }}>1+</option>
+                        <option value="2+" {{ old('experience') == '2+' ? 'selected' : '' }}>2+</option>
+                        <option value="3+" {{ old('experience') == '3+' ? 'selected' : '' }}>3+</option>
                     </select>
                     @error('experience') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
@@ -69,7 +72,7 @@
         </div>
 
         <!-- List Counsellors -->
-        <div class="bg-[#E5DCD3] p-6 rounded-2xl shadow-lg border border-[#D5CBBF] md:col-span-2">
+        <div class="bg-[#efefef] p-6 rounded-2xl shadow-lg border border-[#D5CBBF] md:col-span-2">
             <h3 class="text-xl font-bold text-[#333] mb-4">Manage Counsellors ({{ count($counsellors) }})</h3>
             <div class="space-y-4">
                 @forelse($counsellors as $counsellor)
@@ -78,18 +81,31 @@
                             @if($counsellor->image)
                                 <img src="{{ asset('images/counsellors/' . $counsellor->image) }}" class="w-12 h-12 object-cover rounded-full border border-[#D5CBBF] shadow-sm">
                             @else
-                                <div class="w-12 h-12 flex items-center justify-center bg-[#E5DCD3] rounded-full text-[#5a7b6b] border border-[#D5CBBF] shadow-sm">
+                                <div class="w-12 h-12 flex items-center justify-center bg-[#efefef] rounded-full text-[#5a7b6b] border border-[#D5CBBF] shadow-sm">
                                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                                     </svg>
                                 </div>
                             @endif
                             <div>
-                                <div class="font-bold text-[#333] text-lg">{{ $counsellor->name }}</div>
+                                <div class="font-bold text-[#333] text-lg">
+                                    {{ $counsellor->name }}
+                                    @if($counsellor->is_active)
+                                        <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded-full uppercase">Active</span>
+                                    @else
+                                        <span class="ml-2 text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-full uppercase">Inactive</span>
+                                    @endif
+                                </div>
                                 <div class="text-sm text-[#555]">{{ $counsellor->email }}</div>
                             </div>
                         </div>
-                        <div class="flex space-x-2">
+                        <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 items-center">
+                            <form action="{{ route('admin.counsellors.toggle', $counsellor) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="px-3 py-1 {{ $counsellor->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold rounded">
+                                    {{ $counsellor->is_active ? 'Deactivate' : 'Activate' }}
+                                </button>
+                            </form>
                             <a href="{{ route('admin.counsellors.edit', $counsellor) }}" class="px-3 py-1 bg-blue-500 text-white text-sm font-bold rounded hover:bg-blue-600">Edit</a>
                             <form action="{{ route('admin.counsellors.destroy', $counsellor) }}" method="POST" onsubmit="return confirm('Delete this counsellor? All their data might be affected.');">
                                 @csrf

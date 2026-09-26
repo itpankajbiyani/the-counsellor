@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-full max-w-4xl bg-[#E5DCD3] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF] mt-8 mb-16">
+<div class="w-full max-w-4xl bg-[#efefef] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF] mt-8 mb-16">
     
     <div class="flex justify-between items-center mb-8 border-b border-[#C5BBAF] pb-4">
         <h2 class="text-3xl font-bold text-[#333]">My Appointments</h2>
@@ -48,10 +48,15 @@
                                         <button type="submit" class="text-red-500 hover:text-red-700 text-xs font-bold underline text-left mt-1">Cancel</button>
                                     </form>
                                 </div>
+                            @elseif($booking->status === 'completed')
+                                <span class="px-3 py-1 bg-blue-200 text-blue-800 rounded-full text-sm font-bold shadow-sm">Completed</span>
                             @else
                                 <span class="px-3 py-1 bg-red-200 text-red-800 rounded-full text-sm font-bold shadow-sm">Cancelled</span>
+                                @if($booking->cancelled_by)
+                                    <p class="text-xs font-bold text-red-600 uppercase mt-2">By: {{ $booking->cancelled_by }}</p>
+                                @endif
                                 @if($booking->cancellation_reason)
-                                    <p class="text-xs mt-2 text-[#555]">Reason: {{ $booking->cancellation_reason }}</p>
+                                    <p class="text-xs {{ $booking->cancelled_by ? 'mt-1' : 'mt-2' }} text-[#555]">Reason: {{ $booking->cancellation_reason }}</p>
                                 @endif
                             @endif
                         </td>

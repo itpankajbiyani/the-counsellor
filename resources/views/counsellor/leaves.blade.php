@@ -5,7 +5,7 @@
     @include('counsellor.nav')
 
     <!-- Add Leave / Exception -->
-    <div class="bg-[#E5DCD3] text-[#333] p-6 max-w-xl mx-auto rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] text-[#333] p-6 max-w-xl mx-auto rounded-2xl shadow-lg border border-[#D5CBBF]">
         <h3 class="text-xl font-bold text-[#333] mb-4">Add Leave / Exception</h3>
         <form action="{{ route('counsellor.leaves.store') }}" method="POST">
             @csrf

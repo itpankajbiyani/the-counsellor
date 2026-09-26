@@ -15,7 +15,8 @@ class VisitorController extends Controller
         $counsellors = User::where('role', 'counsellor')->get();
         $blogs = \App\Models\Blog::latest()->take(3)->get();
         $testimonials = \App\Models\Testimonial::latest()->take(3)->get();
-        return view('home', compact('counsellors', 'blogs', 'testimonials'));
+        $faqs = \App\Models\Faq::all();
+        return view('home', compact('counsellors', 'blogs', 'testimonials', 'faqs'));
     }
 
     public function showBlog(\App\Models\Blog $blog)
@@ -152,7 +153,8 @@ class VisitorController extends Controller
             
             $booking->update([
                 'status' => 'cancelled',
-                'cancellation_reason' => $request->cancellation_reason
+                'cancellation_reason' => $request->cancellation_reason,
+                'cancelled_by' => 'user'
             ]);
             
             $booking->load('counsellor');

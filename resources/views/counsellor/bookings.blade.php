@@ -5,16 +5,29 @@
     @include('counsellor.nav')
 
     <!-- Main: Bookings -->
-    <div class="bg-[#E5DCD3] text-[#333] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
-        <h3 class="text-2xl font-bold text-[#333] mb-6">Your Bookings</h3>
+    <div class="bg-[#efefef] text-[#333] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333]">Your Bookings</h3>
+            
+            <form action="{{ route('counsellor.bookings') }}" method="GET" class="flex items-center space-x-2 mt-4 md:mt-0">
+                <select name="status" class="p-2 border border-[#D5CBBF] rounded bg-[#FAF6F4] text-[#333]">
+                    <option value="">All Statuses</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="accepted" {{ request('status') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+                <button type="submit" class="bg-[#5a7b6b] text-white px-4 py-2 rounded font-bold hover:bg-[#4a6758]">Filter</button>
+            </form>
+        </div>
         
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="border-b border-[#C5BBAF] text-[#4a3b32]">
                         <th class="p-3">Date & Time</th>
-                        <th class="p-3">Patient</th>
-                        <th class="p-3">Status / Action</th>
+                        <th class="p-3 w-2/4">Patient</th>
+                        <th class="p-3 w-40">Status / Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,8 +77,11 @@
                                     <span class="px-2 py-1 bg-blue-200 text-blue-800 rounded font-bold uppercase block text-center">Completed</span>
                                 @else
                                     <span class="px-2 py-1 bg-red-200 text-red-800 rounded font-bold uppercase block text-center">Cancelled</span>
+                                    @if($booking->cancelled_by)
+                                        <p class="text-[0.65rem] font-bold text-red-600 uppercase text-center mt-1">By: {{ $booking->cancelled_by }}</p>
+                                    @endif
                                     @if($booking->cancellation_reason)
-                                        <p class="text-xs mt-1 text-[#555]">"{{ $booking->cancellation_reason }}"</p>
+                                        <p class="text-xs mt-1 text-[#555] text-center">"{{ $booking->cancellation_reason }}"</p>
                                     @endif
                                 @endif
                             </td>

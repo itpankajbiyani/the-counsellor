@@ -15,9 +15,15 @@ class CounsellorController extends Controller
         return redirect()->route('counsellor.bookings');
     }
 
-    public function bookings()
+    public function bookings(Request $request)
     {
-        $bookings = Booking::with('user')->where('counsellor_id', Auth::id())->orderBy('date')->orderBy('start_time')->get();
+        $query = Booking::with('user')->where('counsellor_id', Auth::id())->orderBy('date')->orderBy('start_time');
+        
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+        
+        $bookings = $query->get();
         return view('counsellor.bookings', compact('bookings'));
     }
 
@@ -112,7 +118,8 @@ class CounsellorController extends Controller
         
         $booking->update([
             'status' => 'cancelled',
-            'cancellation_reason' => $request->cancellation_reason
+            'cancellation_reason' => $request->cancellation_reason,
+            'cancelled_by' => 'counsellor'
         ]);
         
         $booking->load('user');

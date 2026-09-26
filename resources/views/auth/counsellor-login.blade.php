@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-full max-w-md mx-auto mt-16 mb-16">
-    <div class="bg-[#E5DCD3] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
         <h2 class="text-2xl font-bold text-[#333] mb-6 text-center">Staff / Counsellor Login</h2>
         <form action="{{ route('login.post') }}" method="POST">
             @csrf

@@ -32,21 +32,24 @@
         
         <!-- Links -->
         <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium text-[#6B5D53]">
-            @if(Auth::check())
-                <span class="text-[#4A5D4E] font-bold">Welcome, {{ Auth::user()->name }}!</span>
-            @else
-                <a href="{{ route('home') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('home') ? 'text-[#4A5D4E] font-bold' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('about') ? 'text-[#4A5D4E] font-bold' : '' }}">About</a>
-                <a href="{{ route('home') }}#counsellors" class="hover:text-[#4A5D4E] transition">Counselling</a>
-                <a href="#" class="hover:text-[#4A5D4E] transition">Reading Corner</a>
-                <a href="{{ route('forum.index') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('forum.*') ? 'text-[#4A5D4E] font-bold' : '' }}">Forum</a>
-                <a href="{{ route('contact') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('contact') ? 'text-[#4A5D4E] font-bold' : '' }}">Contact</a>
-            @endif
+            <a href="{{ route('home') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('home') ? 'text-[#4A5D4E] font-bold' : '' }}">Home</a>
+            <a href="{{ route('about') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('about') ? 'text-[#4A5D4E] font-bold' : '' }}">About</a>
+            <a href="{{ route('home') }}#counsellors" class="hover:text-[#4A5D4E] transition">Counselling</a>
+            <div class="relative group py-2">
+                <button class="hover:text-[#4A5D4E] transition flex items-center">Reading Corner <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i></button>
+                <div class="absolute left-0 mt-2 w-40 bg-white border border-[#E8DFC8] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                    <a href="{{ route('reading.blogs') }}" class="block px-4 py-3 text-sm text-[#6B5D53] hover:bg-[#FAF6F1] hover:text-[#4A5D4E] font-medium border-b border-gray-50">Blogs</a>
+                    <a href="{{ route('reading.paintings') }}" class="block px-4 py-3 text-sm text-[#6B5D53] hover:bg-[#FAF6F1] hover:text-[#4A5D4E] font-medium border-b border-gray-50">Paintings</a>
+                    <a href="{{ route('reading.poetry') }}" class="block px-4 py-3 text-sm text-[#6B5D53] hover:bg-[#FAF6F1] hover:text-[#4A5D4E] font-medium">Poetry</a>
+                </div>
+            </div>
+            <a href="{{ route('forum.index') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('forum.*') ? 'text-[#4A5D4E] font-bold' : '' }}">Forum</a>
+            <a href="{{ route('contact') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('contact') ? 'text-[#4A5D4E] font-bold' : '' }}">Contact</a>
         </nav>
         
         <!-- Right side -->
         <div class="flex items-center space-x-4">
-            @if(!Auth::check())
+            @guest
             <div class="hidden md:flex items-center bg-[#EAE3D5] rounded-full px-4 py-2 border border-[#DFD5C4]">
                 <i data-lucide="search" class="w-4 h-4 text-[#8C7D70] mr-2"></i>
                 <input type="text" placeholder="Search" class="bg-transparent outline-none text-sm w-24 text-[#4A5D4E] placeholder-[#8C7D70]">
@@ -58,17 +61,28 @@
             @endguest
             
             @auth
-                @if(Auth::user()->role === 'admin')
-                    <a href="{{ route('admin.dashboard') }}" class="text-sm font-bold text-[#4A5D4E] hover:text-[#6E8578]">Dashboard</a>
-                @elseif(Auth::user()->role === 'counsellor')
-                    <a href="{{ route('counsellor.dashboard') }}" class="text-sm font-bold text-[#4A5D4E] hover:text-[#6E8578]">Dashboard</a>
-                @else
-                    <a href="{{ route('user.dashboard') }}" class="text-sm font-bold text-[#4A5D4E] hover:text-[#6E8578]">My Bookings</a>
-                @endif
-                <form method="POST" action="{{ route('logout') }}" class="inline">
-                    @csrf
-                    <button type="submit" class="bg-[#F0E6CD] text-[#8C7D70] px-4 py-2 rounded-full text-sm font-bold hover:bg-[#E5DCD3] ml-3 transition">Logout</button>
-                </form>
+                <div class="relative group">
+                    <button class="flex items-center space-x-1 text-[#4A5D4E] font-bold hover:text-[#6E8578] transition focus:outline-none py-2">
+                        <span>Welcome, {{ Auth::user()->name }}</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="absolute right-0 mt-1 w-48 bg-white border border-[#E8DFC8] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
+                        <div class="py-1">
+                            @if(Auth::user()->role === 'admin')
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2.5 text-sm text-[#6B5D53] hover:bg-[#F4ECE5] hover:text-[#4A5D4E] transition">Dashboard</a>
+                            @elseif(Auth::user()->role === 'counsellor')
+                                <a href="{{ route('counsellor.dashboard') }}" class="block px-4 py-2.5 text-sm text-[#6B5D53] hover:bg-[#F4ECE5] hover:text-[#4A5D4E] transition">Dashboard</a>
+                            @else
+                                <a href="{{ route('user.dashboard') }}" class="block px-4 py-2.5 text-sm text-[#6B5D53] hover:bg-[#F4ECE5] hover:text-[#4A5D4E] transition">My Bookings</a>
+                            @endif
+                            <form method="POST" action="{{ route('logout') }}" class="block w-full text-left m-0">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             @endauth
         </div>
     </header>
@@ -92,9 +106,8 @@
         @yield('content')
     </main>
 
-    @if(!Auth::check())
     <!-- Footer Main -->
-    <footer class="bg-[#4C5E51] text-[#EADBCC] pt-16 pb-12 px-6 md:px-12 w-full border-t-[16px] border-[#D6DFD9]">
+    <footer class="bg-[#505A46] text-[#EADBCC] pt-16 pb-12 px-6 md:px-12 w-full border-t-[16px] border-[#D6DFD9]">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
             <!-- Left: Logo & Address -->
             <div class="space-y-6 max-w-sm">
@@ -133,7 +146,7 @@
     </footer>
 
     <!-- Footer Bottom -->
-    <div class="bg-[#EAE3D5] py-6 px-6 md:px-12 w-full">
+    <div class="bg-[#F4E7D3] py-6 px-6 md:px-12 w-full">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-[#8C7D70] text-[0.65rem]">
             <div class="space-y-1 text-center md:text-left max-w-3xl">
                 <p class="font-bold text-[#6B5D53]">Copyright © {{ date('Y') }} Biyani Ghar All Rights Reserved.</p>
@@ -148,7 +161,6 @@
             </div>
         </div>
     </div>
-    @endif
 
     <script>
         lucide.createIcons();

@@ -7,8 +7,8 @@
         <h2 class="text-3xl font-bold text-[#333]">Add New Blog</h2>
     </div>
 
-    <div class="bg-[#E5DCD3] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
-        <form action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
+    <div class="bg-[#efefef] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <form id="blog-form" action="{{ route('admin.blogs.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
                 <label class="block text-[#333] font-bold mb-1">Title</label>
@@ -16,10 +16,15 @@
             </div>
             <div class="mb-4">
                 <label class="block text-[#333] font-bold mb-1">Category (e.g. Mental Wellbeing)</label>
-                <input type="text" name="category" class="w-full p-2 bg-[#FAF6F4] border border-[#D5CBBF] rounded focus:ring-2 focus:ring-[#5a7b6b]" maxlength="255">
+                <select name="category" class="w-full p-2 bg-[#FAF6F4] border border-[#D5CBBF] rounded focus:ring-2 focus:ring-[#5a7b6b]">
+                    <option value="">Select Category</option>
+                    @foreach($categories as $cat)
+                        <option value="{{ $cat->name }}">{{ $cat->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-4">
-                <label class="block text-[#333] font-bold mb-1">Content (Optional)</label>
+                <label class="block text-[#333] font-bold mb-1">Content</label>
                 <input type="hidden" name="content" id="content_input">
                 <div id="editor" class="bg-white text-[#333] mb-2" style="min-height: 250px;"></div>
             </div>
@@ -54,9 +59,13 @@
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
-    var form = document.querySelector('form');
+    var form = document.getElementById('blog-form');
     form.onsubmit = function() {
         var content = document.querySelector('#content_input');
+        if (quill.getText().trim().length === 0) {
+            alert('Content is required');
+            return false;
+        }
         content.value = quill.root.innerHTML;
     };
 

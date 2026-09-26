@@ -28,7 +28,7 @@
         
         <div class="prose prose-lg prose-stone max-w-none text-gray-700 leading-relaxed">
             @if($blog->content)
-                {!! nl2br(e($blog->content)) !!}
+                {!! $blog->content !!}
             @else
                 <p class="italic text-gray-500 text-center py-8">This blog is currently empty or available via an external link.</p>
             @endif
@@ -46,13 +46,6 @@
             <a href="{{ route('home') }}" class="text-[#b97a61] font-bold text-sm uppercase tracking-wider flex items-center hover:text-[#9c634d] transition">
                 <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Home
             </a>
-            
-            <div class="flex items-center space-x-3 text-gray-400">
-                <span class="text-sm font-medium">Share:</span>
-                <i data-lucide="twitter" class="w-5 h-5 cursor-pointer hover:text-[#5a7b6b]"></i>
-                <i data-lucide="facebook" class="w-5 h-5 cursor-pointer hover:text-[#5a7b6b]"></i>
-                <i data-lucide="linkedin" class="w-5 h-5 cursor-pointer hover:text-[#5a7b6b]"></i>
-            </div>
         </div>
     </div>
 </section>

@@ -4,7 +4,7 @@
 <div class="w-full max-w-md mx-auto mt-16 mb-16">
 
     <!-- User Registration/Login via OTP -->
-    <div class="bg-[#E5DCD3] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] text-[#333] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
         <h2 class="text-2xl font-bold text-[#333] mb-6 text-center">User Login</h2>
         
         @if(!session()->has('otp_phone'))

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,6 +18,10 @@ class AdminController extends Controller
         
         if ($request->has('counsellor_id') && $request->counsellor_id != '') {
             $query->where('counsellor_id', $request->counsellor_id);
+        }
+        
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
         }
         
         $bookings = $query->get();
@@ -37,6 +42,7 @@ class AdminController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'experience' => 'nullable|string',
+            'qualification' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -53,6 +59,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'about' => $request->about,
             'experience' => $request->experience,
+            'qualification' => $request->qualification,
             'image' => $imageName,
             'role' => 'counsellor',
         ]);
@@ -74,6 +81,7 @@ class AdminController extends Controller
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'password' => 'nullable|string|min:6|confirmed',
             'experience' => 'nullable|string',
+            'qualification' => 'nullable|string',
             'about' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -82,6 +90,7 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->about = $request->about;
         $user->experience = $request->experience;
+        $user->qualification = $request->qualification;
         
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
@@ -112,7 +121,8 @@ class AdminController extends Controller
 
     public function createBlog()
     {
-        return view('admin.blogs.create');
+        $categories = BlogCategory::orderBy('name')->get();
+        return view('admin.blogs.create', compact('categories'));
     }
 
     public function storeBlog(Request $request)
@@ -120,7 +130,7 @@ class AdminController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'content' => 'nullable|string',
+            'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
         
@@ -135,6 +145,8 @@ class AdminController extends Controller
             'category' => $request->category,
             'content' => $request->content,
             'image' => $imageName,
+            'status' => 'approved',
+            'user_id' => \Illuminate\Support\Facades\Auth::id(),
         ]);
         
         return back()->with('success', 'Blog added successfully.');
@@ -148,7 +160,8 @@ class AdminController extends Controller
 
     public function editBlog(Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        $categories = BlogCategory::orderBy('name')->get();
+        return view('admin.blogs.edit', compact('blog', 'categories'));
     }
 
     public function updateBlog(Request $request, Blog $blog)
@@ -156,7 +169,7 @@ class AdminController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
-            'content' => 'nullable|string',
+            'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
         ]);
         
@@ -227,5 +240,28 @@ class AdminController extends Controller
         
         $testimonial->save();
         return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated successfully.');
+    }
+
+    public function toggleCounsellor(User $user)
+    {
+        if ($user->role === 'counsellor') {
+            $user->is_active = !$user->is_active;
+            $user->save();
+        }
+        return back()->with('success', 'Counsellor status updated.');
+    }
+
+    public function toggleBlog(Blog $blog)
+    {
+        $blog->is_active = !$blog->is_active;
+        $blog->save();
+        return back()->with('success', 'Blog status updated.');
+    }
+
+    public function toggleTestimonial(Testimonial $testimonial)
+    {
+        $testimonial->is_active = !$testimonial->is_active;
+        $testimonial->save();
+        return back()->with('success', 'Testimonial status updated.');
     }
 }

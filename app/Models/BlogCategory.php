@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Testimonial extends Model
+class BlogCategory extends Model
 {
-    protected $fillable = ['student_name', 'course_year', 'content', 'is_active'];
+    protected $fillable = ['name', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',

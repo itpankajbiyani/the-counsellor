@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-4xl w-full mt-8 mb-16 relative">
     
-    <div class="bg-[#E5DCD3] p-8 mb-8 text-center rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="bg-[#efefef] p-8 mb-8 text-center rounded-2xl shadow-lg border border-[#D5CBBF]">
         @if($user->image)
             <img src="{{ asset('images/counsellors/' . $user->image) }}" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-white shadow-md">
         @endif
@@ -17,7 +17,7 @@
     @if(count($slots) > 0)
         <div class="space-y-6">
             @foreach($slots as $date => $daySlots)
-                <div class="bg-[#E5DCD3] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
+                <div class="bg-[#efefef] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
                     <h3 class="text-2xl font-bold text-[#333] mb-4">{{ \Carbon\Carbon::parse($date)->format('l, F j, Y') }}</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($daySlots as $slot)
@@ -40,7 +40,7 @@
             @endforeach
         </div>
     @else
-        <div class="bg-[#E5DCD3] p-12 text-center rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <div class="bg-[#efefef] p-12 text-center rounded-2xl shadow-lg border border-[#D5CBBF]">
             <h3 class="text-xl text-[#333] font-medium">No available slots in the next 14 days.</h3>
         </div>
     @endif

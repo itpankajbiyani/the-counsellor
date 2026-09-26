@@ -13,6 +13,11 @@ Route::view('/about', 'about')->name('about');
 Route::get('/counsellor/{user}', [VisitorController::class, 'show'])->name('counsellor.show')->whereNumber('user');
 Route::view('/contact', 'contact')->name('contact');
 
+// Reading Corner
+Route::get('/reading-corner/blogs', [\App\Http\Controllers\ActivityController::class, 'blogs'])->name('reading.blogs');
+Route::get('/reading-corner/paintings', [\App\Http\Controllers\ActivityController::class, 'paintings'])->name('reading.paintings');
+Route::get('/reading-corner/poetry', [\App\Http\Controllers\ActivityController::class, 'poetry'])->name('reading.poetry');
+
 Route::get('/forum', [\App\Http\Controllers\ForumController::class, 'index'])->name('forum.index');
 Route::get('/forum/{question}', [\App\Http\Controllers\ForumController::class, 'show'])->name('forum.show');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
@@ -31,6 +36,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/counsellors/{user}/edit', [AdminController::class, 'editCounsellor'])->name('counsellors.edit');
     Route::put('/counsellors/{user}', [AdminController::class, 'updateCounsellor'])->name('counsellors.update');
     Route::delete('/counsellors/{user}', [AdminController::class, 'destroyCounsellor'])->name('counsellors.destroy');
+    Route::delete('/counsellors/{user}', [AdminController::class, 'destroyCounsellor'])->name('counsellors.destroy');
+    Route::post('/counsellors/{user}/toggle', [AdminController::class, 'toggleCounsellor'])->name('counsellors.toggle');
     
     Route::get('/blogs', [AdminController::class, 'blogsIndex'])->name('blogs.index');
     Route::get('/blogs/create', [AdminController::class, 'createBlog'])->name('blogs.create');
@@ -38,6 +45,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/blogs/{blog}/edit', [AdminController::class, 'editBlog'])->name('blogs.edit');
     Route::put('/blogs/{blog}', [AdminController::class, 'updateBlog'])->name('blogs.update');
     Route::delete('/blogs/{blog}', [AdminController::class, 'destroyBlog'])->name('blogs.destroy');
+    Route::delete('/blogs/{blog}', [AdminController::class, 'destroyBlog'])->name('blogs.destroy');
+    Route::post('/blogs/{blog}/toggle', [AdminController::class, 'toggleBlog'])->name('blogs.toggle');
     
     Route::get('/testimonials', [AdminController::class, 'testimonialsIndex'])->name('testimonials.index');
     Route::get('/testimonials/create', [AdminController::class, 'createTestimonial'])->name('testimonials.create');
@@ -45,6 +54,18 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/testimonials/{testimonial}/edit', [AdminController::class, 'editTestimonial'])->name('testimonials.edit');
     Route::put('/testimonials/{testimonial}', [AdminController::class, 'updateTestimonial'])->name('testimonials.update');
     Route::delete('/testimonials/{testimonial}', [AdminController::class, 'destroyTestimonial'])->name('testimonials.destroy');
+    Route::delete('/testimonials/{testimonial}', [AdminController::class, 'destroyTestimonial'])->name('testimonials.destroy');
+    Route::post('/testimonials/{testimonial}/toggle', [AdminController::class, 'toggleTestimonial'])->name('testimonials.toggle');
+    Route::resource('blog-categories', \App\Http\Controllers\BlogCategoryController::class)->except(['create', 'show', 'edit']);
+    Route::post('/blog-categories/{blog_category}/toggle', [\App\Http\Controllers\BlogCategoryController::class, 'toggle'])->name('blog-categories.toggle');
+    
+    Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class);
+    Route::post('/faqs/{faq}/toggle', [\App\Http\Controllers\Admin\FaqController::class, 'toggle'])->name('faqs.toggle');
+    
+    // Admin Activity Approvals
+    Route::get('/activities', [\App\Http\Controllers\ActivityController::class, 'adminIndex'])->name('activities.index');
+    Route::post('/activities/{blog}/approve', [\App\Http\Controllers\ActivityController::class, 'approve'])->name('activities.approve');
+    Route::post('/activities/{blog}/reject', [\App\Http\Controllers\ActivityController::class, 'reject'])->name('activities.reject');
 });
 
 // Counsellor routes
@@ -66,6 +87,14 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
 Route::middleware('auth')->group(function () {
     Route::post('/forum/question', [\App\Http\Controllers\ForumController::class, 'storeQuestion'])->name('forum.storeQuestion');
     Route::post('/forum/{question}/answer', [\App\Http\Controllers\ForumController::class, 'storeAnswer'])->name('forum.storeAnswer');
+    Route::put('/forum/answer/{answer}', [\App\Http\Controllers\ForumController::class, 'updateAnswer'])->name('forum.updateAnswer');
+    Route::delete('/forum/answer/{answer}', [\App\Http\Controllers\ForumController::class, 'destroyAnswer'])->name('forum.destroyAnswer');
+});
+
+// Authenticated Activity Routes
+Route::middleware('auth')->group(function () {
+    Route::post('/reading-corner/store', [\App\Http\Controllers\ActivityController::class, 'store'])->name('reading.store');
+    Route::delete('/reading-corner/{blog}', [\App\Http\Controllers\ActivityController::class, 'destroy'])->name('reading.destroy');
 });
 
 // User routes
