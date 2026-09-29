@@ -29,4 +29,22 @@
                         <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 items-center">
                             <form action="{{ route('admin.faqs.toggle', $faq) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="px-3 py-1 {{ $faq->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold ro
+                                <button type="submit" class="px-3 py-1 w-24 text-center {{ $faq->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold rounded">
+                                    {{ $faq->is_active ? 'Deactivate' : 'Activate' }}
+                                </button>
+                            </form>
+                            <a href="{{ route('admin.faqs.edit', $faq) }}" class="px-3 py-1 bg-[#5a7b6b] text-white text-sm font-bold rounded hover:bg-[#4a6758]">Edit</a>
+                            <form action="{{ route('admin.faqs.destroy', $faq) }}" method="POST" onsubmit="return confirm('Delete this FAQ?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                @empty
+                    <div class="p-6 text-center text-[#555] bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg">No FAQs added yet.</div>
+                @endforelse
+            </div>
+    </div>
+</div>
+@endsection

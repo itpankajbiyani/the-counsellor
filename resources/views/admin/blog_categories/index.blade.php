@@ -45,9 +45,9 @@
                                 </form>
                             </td>
                             <td class="p-3">
-                                <form action="{{ route('admin.blog-categories.toggle', $category) }}" method="POST" class="inline">
+                                <form action="{{ route('admin.blog-categories.toggle', $category) }}" method="POST" class="inline flex-shrink-0">
                                     @csrf
-                                    <button type="submit" class="text-xs {{ $category->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-2 py-1 rounded">
+                                    <button type="submit" class="text-xs w-20 text-center {{ $category->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white px-2 py-1 rounded">
                                         {{ $category->is_active ? 'Deactivate' : 'Activate' }}
                                     </button>
                                 </form>

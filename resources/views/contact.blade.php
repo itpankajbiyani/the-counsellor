@@ -53,7 +53,7 @@
         <!-- Right: Map Embed (Optional Visual) -->
         <div class="h-full w-full min-h-[400px] bg-gray-200 rounded-3xl overflow-hidden shadow-inner border-4 border-white">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4274.075390562427!2d75.77649602601704!3d26.956539458204887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b6bcfa96dd%3A0xf9f7da0266bba1ef!2sBIYANI%20GROUP%20OF%20COLLEGE%2C%20Vidyadhar%20Nagar%2C%20Jaipur%2C%20Jaipur%20Nagar%20Nigam%20Area%2C%20Rajasthan%20302039!5e1!3m2!1sen!2sin!4v1790399894680!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4274.075390562427!2d75.77649602601704!3d26.956539458204887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b6bcfa96dd%3A0xf9f7da0266bba1ef!2sBIYANI%20GROUP%20OF%20COLLEGE%2C%20Vidyadhar%20Nagar%2C%20Jaipur%2C%20Jaipur%20Nagar%20Nigam%20Area%2C%20Rajasthan%20302039!5e0!3m2!1sen!2sin!4v1790399894680!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 

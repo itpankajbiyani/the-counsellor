@@ -121,7 +121,7 @@ class AdminController extends Controller
 
     public function createBlog()
     {
-        $categories = BlogCategory::orderBy('name')->get();
+        $categories = BlogCategory::where('is_active', true)->orderBy('name')->get();
         return view('admin.blogs.create', compact('categories'));
     }
 
@@ -160,7 +160,7 @@ class AdminController extends Controller
 
     public function editBlog(Blog $blog)
     {
-        $categories = BlogCategory::orderBy('name')->get();
+        $categories = BlogCategory::where('is_active', true)->orderBy('name')->get();
         return view('admin.blogs.edit', compact('blog', 'categories'));
     }
 

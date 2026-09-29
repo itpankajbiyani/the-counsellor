@@ -12,21 +12,22 @@ class VisitorController extends Controller
 {
     public function index()
     {
-        $counsellors = User::where('role', 'counsellor')->get();
-        $blogs = \App\Models\Blog::latest()->take(3)->get();
-        $testimonials = \App\Models\Testimonial::latest()->take(3)->get();
-        $faqs = \App\Models\Faq::all();
+        $counsellors = User::where('role', 'counsellor')->where('is_active', true)->get();
+        $blogs = \App\Models\Blog::where('is_active', true)->where('type', 'blog')->latest()->take(3)->get();
+        $testimonials = \App\Models\Testimonial::where('is_active', true)->latest()->take(3)->get();
+        $faqs = \App\Models\Faq::where('is_active', true)->get();
         return view('home', compact('counsellors', 'blogs', 'testimonials', 'faqs'));
     }
 
     public function showBlog(\App\Models\Blog $blog)
     {
+        if (!$blog->is_active) abort(404);
         return view('blog.show', compact('blog'));
     }
 
     public function show(User $user)
     {
-        if ($user->role !== 'counsellor') abort(404);
+        if ($user->role !== 'counsellor' || !$user->is_active) abort(404);
         
         $user->load(['availabilities', 'leaves']);
         
@@ -142,7 +143,9 @@ class VisitorController extends Controller
     public function dashboard()
     {
         $bookings = Booking::with('counsellor')->where('user_id', Auth::id())->orderBy('date', 'desc')->get();
-        return view('user.dashboard', compact('bookings'));
+        $activities = \App\Models\Blog::where('user_id', Auth::id())->whereIn('type', ['blog', 'painting', 'poetry'])->latest()->get();
+        $categories = \App\Models\BlogCategory::where('is_active', true)->orderBy('name')->get();
+        return view('user.dashboard', compact('bookings', 'activities', 'categories'));
     }
 
     public function cancelBooking(Request $request, Booking $booking)

@@ -49,39 +49,39 @@
                             </td>
                             <td class="p-3">
                                 @if($booking->status === 'pending')
-                                    <div class="flex flex-col space-y-2">
+                                    <div class="flex flex-col space-y-3">
                                         <form action="{{ route('counsellor.bookings.accept', $booking) }}" method="POST">
                                             @csrf
-                                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded w-full">Accept</button>
+                                            <button type="submit" class="bg-[#5E7363] hover:bg-[#4A5D4E] text-white font-bold text-xs py-1.5 px-3 rounded-full w-full transition shadow-sm">Accept</button>
                                         </form>
                                         <form action="{{ route('counsellor.bookings.cancel', $booking) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel?');">
                                             @csrf
-                                            <input type="text" name="cancellation_reason" placeholder="Reason..." class="w-full p-1 mb-1 text-sm border rounded" required>
-                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded w-full">Cancel</button>
+                                            <input type="text" name="cancellation_reason" placeholder="Reason..." class="w-full p-1.5 mb-1.5 text-xs border border-[#D5CBBF] rounded-lg bg-white" required>
+                                            <button type="submit" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold text-xs py-1.5 px-3 rounded-full w-full transition shadow-sm">Cancel</button>
                                         </form>
                                     </div>
                                 @elseif($booking->status === 'accepted')
-                                    <div class="flex flex-col space-y-2">
-                                        <span class="px-2 py-1 bg-green-200 text-green-800 rounded font-bold uppercase text-center w-full block">Accepted</span>
+                                    <div class="flex flex-col space-y-3">
+                                        <span class="px-2 py-1 bg-green-50 text-green-700 border border-green-200 rounded-full font-bold text-[10px] uppercase text-center w-full block">Accepted</span>
                                         <form action="{{ route('counsellor.bookings.complete', $booking) }}" method="POST" onsubmit="return confirm('Mark this session as completed?');">
                                             @csrf
-                                            <button type="submit" class="bg-[#5a7b6b] hover:bg-[#4a6758] text-white font-bold py-1 px-3 rounded w-full">Complete</button>
+                                            <button type="submit" class="bg-[#5E7363] hover:bg-[#4A5D4E] text-white font-bold text-xs py-1.5 px-3 rounded-full w-full transition shadow-sm">Complete</button>
                                         </form>
                                         <form action="{{ route('counsellor.bookings.cancel', $booking) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this accepted booking?');">
                                             @csrf
-                                            <input type="text" name="cancellation_reason" placeholder="Reason..." class="w-full p-1 mb-1 text-sm border rounded bg-white text-[#333]" required>
-                                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded w-full">Cancel</button>
+                                            <input type="text" name="cancellation_reason" placeholder="Reason..." class="w-full p-1.5 mb-1.5 text-xs border border-[#D5CBBF] rounded-lg bg-white" required>
+                                            <button type="submit" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold text-xs py-1.5 px-3 rounded-full w-full transition shadow-sm">Cancel</button>
                                         </form>
                                     </div>
                                 @elseif($booking->status === 'completed')
-                                    <span class="px-2 py-1 bg-blue-200 text-blue-800 rounded font-bold uppercase block text-center">Completed</span>
+                                    <span class="px-2 py-1 bg-blue-50 text-blue-700 border border-blue-200 rounded-full font-bold text-[10px] uppercase block text-center">Completed</span>
                                 @else
-                                    <span class="px-2 py-1 bg-red-200 text-red-800 rounded font-bold uppercase block text-center">Cancelled</span>
+                                    <span class="px-2 py-1 bg-red-50 text-red-700 border border-red-200 rounded-full font-bold text-[10px] uppercase block text-center">Cancelled</span>
                                     @if($booking->cancelled_by)
-                                        <p class="text-[0.65rem] font-bold text-red-600 uppercase text-center mt-1">By: {{ $booking->cancelled_by }}</p>
+                                        <p class="text-[9px] font-bold text-red-500 uppercase text-center mt-1.5">By: {{ $booking->cancelled_by }}</p>
                                     @endif
                                     @if($booking->cancellation_reason)
-                                        <p class="text-xs mt-1 text-[#555] text-center">"{{ $booking->cancellation_reason }}"</p>
+                                        <p class="text-[11px] mt-1 text-[#8C7D70] text-center italic">"{{ $booking->cancellation_reason }}"</p>
                                     @endif
                                 @endif
                             </td>

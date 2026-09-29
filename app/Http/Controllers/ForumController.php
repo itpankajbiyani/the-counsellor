@@ -25,13 +25,12 @@ class ForumController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'body' => 'required|string',
         ]);
 
         Question::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
-            'body' => $request->body,
+            'body' => $request->title, // fallback
         ]);
 
         return redirect()->route('forum.index')->with('success', 'Question posted successfully!');

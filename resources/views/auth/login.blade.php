@@ -25,7 +25,7 @@
                 @csrf
                 <div class="mb-4">
                     <label class="block text-[#333] font-bold mb-2">Enter OTP</label>
-                    <input type="text" name="otp" class="w-full p-3 bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5a7b6b] text-[#333]" placeholder="6-digit code" required minlength="6" maxlength="6" pattern="\d{6}" title="Please enter the exactly 6-digit OTP" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);">
+                    <input type="text" name="otp" value="{{ session('uat_otp', '') }}" class="w-full p-3 bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#5a7b6b] text-[#333]" placeholder="6-digit code" required minlength="6" maxlength="6" pattern="\d{6}" title="Please enter the exactly 6-digit OTP" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);">
                     <p class="text-sm text-[#555] mt-2">OTP is valid for 3 minutes.</p>
                 </div>
                 <button type="submit" class="w-full py-3 mt-2 font-bold text-white bg-[#5a7b6b] hover:bg-[#4a6758] rounded-lg shadow transition text-lg">Verify & Login</button>

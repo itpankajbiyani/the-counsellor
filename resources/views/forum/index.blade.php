@@ -24,7 +24,7 @@
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#F0E6CD] hover:border-[#A5C3AE] transition">
                     <a href="{{ route('forum.show', $question) }}" class="block">
                         <h3 class="serif text-xl font-bold text-[#4A5D4E] mb-2 group-hover:text-[#5E7363] transition">{{ $question->title }}</h3>
-                        <p class="text-[#6B5D53] text-sm mb-4 line-clamp-2">{{ $question->body }}</p>
+
                         <div class="flex justify-between items-center text-xs text-[#8C7D70] border-t border-[#F3EFE9] pt-4">
                             <span class="flex items-center"><i data-lucide="user" class="w-3 h-3 mr-1"></i> {{ $question->user->name }}</span>
                             <span class="flex items-center space-x-4">
@@ -62,10 +62,7 @@
                 <label class="block text-sm font-bold text-[#6B5D53] mb-2">Title</label>
                 <input type="text" name="title" required class="w-full p-3 bg-[#FAF6F1] border border-[#EADBCC] rounded-xl focus:outline-none focus:border-[#A5C3AE]" placeholder="What is your question?">
             </div>
-            <div class="mb-6">
-                <label class="block text-sm font-bold text-[#6B5D53] mb-2">Details</label>
-                <textarea name="body" rows="5" required class="w-full p-3 bg-[#FAF6F1] border border-[#EADBCC] rounded-xl focus:outline-none focus:border-[#A5C3AE]" placeholder="Explain your situation or question in detail..."></textarea>
-            </div>
+
             <button type="submit" class="w-full bg-[#5E7363] text-white px-6 py-3 rounded-xl font-bold tracking-wide hover:bg-[#4A5D4E] transition shadow-sm">
                 Post Question
             </button>

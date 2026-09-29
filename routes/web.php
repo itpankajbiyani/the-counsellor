@@ -93,7 +93,10 @@ Route::middleware('auth')->group(function () {
 
 // Authenticated Activity Routes
 Route::middleware('auth')->group(function () {
+    Route::get('/reading-corner/submit', [\App\Http\Controllers\ActivityController::class, 'create'])->name('reading.create');
     Route::post('/reading-corner/store', [\App\Http\Controllers\ActivityController::class, 'store'])->name('reading.store');
+    Route::get('/reading-corner/{blog}/edit', [\App\Http\Controllers\ActivityController::class, 'edit'])->name('reading.edit');
+    Route::put('/reading-corner/{blog}', [\App\Http\Controllers\ActivityController::class, 'update'])->name('reading.update');
     Route::delete('/reading-corner/{blog}', [\App\Http\Controllers\ActivityController::class, 'destroy'])->name('reading.destroy');
 });
 

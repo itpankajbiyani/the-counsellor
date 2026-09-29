@@ -32,7 +32,7 @@
                         <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 items-center">
                             <form action="{{ route('admin.blogs.toggle', $blog) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="px-3 py-1 {{ $blog->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold rounded">
+                                <button type="submit" class="px-3 py-1 w-24 text-center {{ $blog->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold rounded">
                                     {{ $blog->is_active ? 'Deactivate' : 'Activate' }}
                                 </button>
                             </form>

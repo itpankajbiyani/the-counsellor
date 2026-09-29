@@ -136,9 +136,15 @@
                     <p class="text-[0.65rem] text-[#8C7D70] uppercase tracking-wider mb-1 font-bold">{{ $counsellor->qualification ?? 'Counsellor' }}</p>
                     <p class="text-[0.65rem] text-[#8C7D70] mb-6">Experience: {{ $counsellor->experience ?? 'N/A' }} {{ ($counsellor->experience && $counsellor->experience != 'N/A') ? 'Years' : '' }}</p>
                     
-                    <a href="{{ route('counsellor.show', $counsellor) }}" class="mt-auto bg-[#6E8578] text-white text-[0.65rem] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full group-hover:bg-[#4A5D4E] transition w-full shadow-sm">
-                        Book Session
-                    </a>
+                    @if(Auth::check() && Auth::user()->role === 'counsellor')
+                        <a href="{{ route('counsellor.show', $counsellor) }}" class="mt-auto bg-[#D5DCD8] text-[#4A5D4E] text-[0.65rem] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full group-hover:bg-[#EADBCC] transition w-full shadow-sm text-center">
+                            View Profile
+                        </a>
+                    @else
+                        <a href="{{ route('counsellor.show', $counsellor) }}" class="mt-auto bg-[#6E8578] text-white text-[0.65rem] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full group-hover:bg-[#4A5D4E] transition w-full shadow-sm text-center">
+                            Book Session
+                        </a>
+                    @endif
                 </div>
             @empty
                 <div class="col-span-full text-[#8C7D70] py-8">No counsellors currently available.</div>
@@ -153,7 +159,11 @@
                     <h3 class="serif font-bold text-[#4A5D4E] mb-1">Coming Soon</h3>
                     <p class="text-[0.65rem] text-[#8C7D70] uppercase tracking-wider mb-6 font-bold">Counsellor</p>
                     <button disabled class="mt-auto bg-[#D5DCD8] text-[#8C9B90] text-[0.65rem] font-bold tracking-widest uppercase px-4 py-2.5 rounded-full w-full cursor-not-allowed">
-                        Book Session
+                        @if(Auth::check() && Auth::user()->role === 'counsellor')
+                            View Profile
+                        @else
+                            Book Session
+                        @endif
                     </button>
                 </div>
             @endfor
@@ -177,9 +187,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @php
             $activities = [
-                ['icon' => 'book-open', 'title' => 'Blogs', 'desc' => 'Share your thoughts, stories or reflections with fellow students.'],
-                ['icon' => 'paintbrush', 'title' => 'Paintings', 'desc' => 'Submit artwork or sketches that express how you feel.'],
-                ['icon' => 'feather', 'title' => 'Poetry', 'desc' => 'Put your emotions into verse and share them with the community.']
+                ['icon' => 'book-open', 'title' => 'Blogs', 'desc' => 'Share your thoughts, stories or reflections with fellow students.', 'link' => route('reading.blogs')],
+                ['icon' => 'paintbrush', 'title' => 'Paintings', 'desc' => 'Submit artwork or sketches that express how you feel.', 'link' => route('reading.paintings')],
+                ['icon' => 'feather', 'title' => 'Poetry', 'desc' => 'Put your emotions into verse and share them with the community.', 'link' => route('reading.poetry')]
             ];
             @endphp
             
@@ -190,9 +200,9 @@
                 </div>
                 <h3 class="serif text-xl font-bold text-[#4A5D4E] mb-3">{{ $act['title'] }}</h3>
                 <p class="text-[#7A6E63] text-xs leading-relaxed mb-8 flex-grow px-4">{{ $act['desc'] }}</p>
-                <button class="bg-[#6E8578] text-white text-[0.65rem] font-bold tracking-widest uppercase px-6 py-2.5 rounded-full hover:bg-[#4A5D4E] transition shadow-sm">
-                    Submit Now
-                </button>
+                <a href="{{ $act['link'] }}" class="bg-[#6E8578] text-white text-[0.65rem] font-bold tracking-widest uppercase px-6 py-2.5 rounded-full hover:bg-[#4A5D4E] transition shadow-sm">
+                    View & Submit
+                </a>
             </div>
             @endforeach
         </div>
@@ -271,6 +281,12 @@
             @empty
                 <div class="col-span-full text-center text-[#8C7D70] py-8">No blogs added yet.</div>
             @endforelse
+        </div>
+        
+        <div class="mt-12 text-center">
+            <a href="{{ route('reading.blogs') }}" class="inline-block bg-[#5E7363] text-white px-8 py-3 rounded-full font-bold text-sm tracking-wide hover:bg-[#4A5D4E] transition shadow-sm">
+                Read All Blogs
+            </a>
         </div>
     </div>
 </section>

@@ -69,6 +69,7 @@ class AuthController extends Controller
         
         $request->session()->put('otp_phone', $request->phone);
         $request->session()->put('otp_sent_at', Carbon::now()->timestamp);
+        $request->session()->put('uat_otp', $otpCode); // TODO: Remove in production
         
         return back()->with('otp_sent', true)->with('success', 'OTP sent successfully. Check logs.');
     }

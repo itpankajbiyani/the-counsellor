@@ -22,11 +22,11 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($daySlots as $slot)
                             @if(isset($slot['booked']) && $slot['booked'])
-                                <button type="button" disabled class="w-full py-2 px-1 text-sm font-bold text-gray-400 bg-gray-200 border border-gray-300 rounded-lg shadow-sm cursor-not-allowed">
+                                <button type="button" disabled class="w-full py-2 px-1 text-sm font-bold text-[#8C9B90] bg-[#D5DCD8] border border-[#C6D0CC] rounded-lg shadow-sm cursor-not-allowed">
                                     {{ \Carbon\Carbon::parse($slot['start'])->format('g:i A') }} - {{ \Carbon\Carbon::parse($slot['end'])->format('g:i A') }}
                                 </button>
                             @elseif(Auth::check() && in_array(Auth::user()->role, ['admin', 'counsellor']))
-                                <button type="button" disabled title="Only users can book sessions" class="w-full py-2 px-1 text-sm font-bold text-gray-500 bg-gray-100 border border-gray-300 rounded-lg shadow-sm cursor-not-allowed">
+                                <button type="button" disabled title="Only users can book sessions" class="w-full py-2 px-1 text-sm font-bold text-[#4A5D4E] bg-[#EADBCC] border border-[#D5CBBF] rounded-lg shadow-sm cursor-not-allowed">
                                     {{ \Carbon\Carbon::parse($slot['start'])->format('g:i A') }} - {{ \Carbon\Carbon::parse($slot['end'])->format('g:i A') }}
                                 </button>
                             @else

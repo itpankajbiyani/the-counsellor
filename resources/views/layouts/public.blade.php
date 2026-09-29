@@ -34,7 +34,7 @@
         <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium text-[#6B5D53]">
             <a href="{{ route('home') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('home') ? 'text-[#4A5D4E] font-bold' : '' }}">Home</a>
             <a href="{{ route('about') }}" class="hover:text-[#4A5D4E] transition {{ request()->routeIs('about') ? 'text-[#4A5D4E] font-bold' : '' }}">About</a>
-            <a href="{{ route('home') }}#counsellors" class="hover:text-[#4A5D4E] transition">Counselling</a>
+            <a href="{{ route('home') }}#counsellors" class="hover:text-[#4A5D4E] transition">Our Counsellors</a>
             <div class="relative group py-2">
                 <button class="hover:text-[#4A5D4E] transition flex items-center">Reading Corner <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i></button>
                 <div class="absolute left-0 mt-2 w-40 bg-white border border-[#E8DFC8] rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 overflow-hidden">
@@ -49,12 +49,12 @@
         
         <!-- Right side -->
         <div class="flex items-center space-x-4">
+            <form action="{{ route('reading.blogs') }}" method="GET" class="hidden md:flex items-center bg-[#EAE3D5] rounded-full px-4 py-2 border border-[#DFD5C4]">
+                <button type="submit" class="focus:outline-none"><i data-lucide="search" class="w-4 h-4 text-[#8C7D70] mr-2 hover:text-[#4A5D4E]"></i></button>
+                <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Search blogs..." class="bg-transparent outline-none text-sm w-24 md:w-32 text-[#4A5D4E] placeholder-[#8C7D70]">
+            </form>
+
             @guest
-            <div class="hidden md:flex items-center bg-[#EAE3D5] rounded-full px-4 py-2 border border-[#DFD5C4]">
-                <i data-lucide="search" class="w-4 h-4 text-[#8C7D70] mr-2"></i>
-                <input type="text" placeholder="Search" class="bg-transparent outline-none text-sm w-24 text-[#4A5D4E] placeholder-[#8C7D70]">
-            </div>
-            
             <a href="{{ route('login') }}" class="bg-[#5E7363] text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wide hover:bg-[#4A5D4E] transition shadow-sm">
                 Talk to Us
             </a>

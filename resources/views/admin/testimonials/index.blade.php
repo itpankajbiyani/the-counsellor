@@ -30,4 +30,20 @@
                         <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 items-center">
                             <form action="{{ route('admin.testimonials.toggle', $testimonial) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="px-3 py-1 {{ $testimonial->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bol
+                                <button type="submit" class="px-3 py-1 w-24 text-center {{ $testimonial->is_active ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600' }} text-white text-sm font-bold rounded">
+                                    {{ $testimonial->is_active ? 'Deactivate' : 'Activate' }}
+                                </button>
+                            </form>
+                            <a href="{{ route('admin.testimonials.edit', $testimonial) }}" class="px-3 py-1 bg-[#5a7b6b] text-white text-sm font-bold rounded hover:bg-[#4a6758]">Edit</a>
+                            <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST" onsubmit="return confirm('Delete this testimonial?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-bold rounded hover:bg-red-600">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                @empty
+                    <div class="p-6 text-center text-[#555] bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg">No testimonials added yet.</div>
+                @endforelse
+            </div>
+@endsection
