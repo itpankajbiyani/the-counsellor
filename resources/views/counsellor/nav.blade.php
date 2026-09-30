@@ -20,5 +20,26 @@
             <i data-lucide="calendar-off" class="w-4 h-4"></i>
             <span>Exceptions</span>
         </a>
+        
+        <a href="{{ route('counsellor.activities', ['type' => 'blog']) }}" 
+           class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2
+                  {{ request()->routeIs('counsellor.activities') && request()->route('type') === 'blog' ? 'bg-white text-[#5c4a3d] shadow-md scale-105' : 'text-gray-700 hover:bg-white/50 hover:text-[#5c4a3d]' }}">
+            <i data-lucide="file-text" class="w-4 h-4"></i>
+            <span>Manage Blogs</span>
+        </a>
+        
+        <a href="{{ route('counsellor.activities', ['type' => 'painting']) }}" 
+           class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2
+                  {{ request()->routeIs('counsellor.activities') && request()->route('type') === 'painting' ? 'bg-white text-[#5c4a3d] shadow-md scale-105' : 'text-gray-700 hover:bg-white/50 hover:text-[#5c4a3d]' }}">
+            <i data-lucide="palette" class="w-4 h-4"></i>
+            <span>Manage Paintings</span>
+        </a>
+        
+        <a href="{{ route('counsellor.activities', ['type' => 'poetry']) }}" 
+           class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2
+                  {{ request()->routeIs('counsellor.activities') && request()->route('type') === 'poetry' ? 'bg-white text-[#5c4a3d] shadow-md scale-105' : 'text-gray-700 hover:bg-white/50 hover:text-[#5c4a3d]' }}">
+            <i data-lucide="feather" class="w-4 h-4"></i>
+            <span>Manage Poetry</span>
+        </a>
     </div>
 </div>

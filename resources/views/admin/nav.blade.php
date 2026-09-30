@@ -5,9 +5,9 @@
     <a href="{{ route('admin.counsellors.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.counsellors.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage Counsellors
     </a>
-    <a href="{{ route('admin.blogs.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.blogs.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
+    <!-- <a href="{{ route('admin.blogs.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.blogs.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage Blogs
-    </a>
+    </a> -->
     <a href="{{ route('admin.blog-categories.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.blog-categories.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Blog Categories
     </a>
@@ -17,7 +17,13 @@
     <a href="{{ route('admin.faqs.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.faqs.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage FAQs
     </a>
-    <a href="{{ route('admin.activities.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
-        Activity Approvals
+    <a href="{{ route('admin.activities.index', ['type' => 'blog']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'blog' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
+        Manage User Blogs
+    </a>
+    <a href="{{ route('admin.activities.index', ['type' => 'painting']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'painting' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
+        Manage User Paintings
+    </a>
+    <a href="{{ route('admin.activities.index', ['type' => 'poetry']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'poetry' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
+        Manage User Poetry
     </a>
 </div>

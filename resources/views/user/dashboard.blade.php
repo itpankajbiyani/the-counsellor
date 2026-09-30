@@ -93,9 +93,9 @@
             <div class="bg-[#FAF6F4] p-5 rounded-xl border border-[#D5CBBF] flex flex-col h-full relative group">
                 <div class="absolute top-4 right-4 flex space-x-2">
                     @if($activity->status === 'pending')
-                        <span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] font-bold rounded-full uppercase">Pending</span>
+                        <span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] font-bold rounded-full uppercase">Under Review</span>
                     @elseif($activity->status === 'approved')
-                        <span class="px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-bold rounded-full uppercase">Approved</span>
+                        <span class="px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-bold rounded-full uppercase">Published</span>
                     @else
                         <span class="px-2 py-0.5 bg-red-100 text-red-800 text-[10px] font-bold rounded-full uppercase">Rejected</span>
                     @endif

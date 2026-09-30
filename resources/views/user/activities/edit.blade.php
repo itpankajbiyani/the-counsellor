@@ -23,7 +23,7 @@
         </div>
     @endif
 
-    <form action="{{ route('reading.update', $blog) }}" method="POST" enctype="multipart/form-data">
+    <form id="edit-activity-form" action="{{ route('reading.update', $blog) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -50,14 +50,30 @@
                 @if($blog->image)
                     <img src="{{ asset('images/activities/' . $blog->image) }}" class="w-full max-w-sm h-auto object-cover rounded-lg mb-3 border border-[#D5CBBF]">
                 @endif
-                <label class="block text-[#333] font-bold mb-2 mt-4">Replace Image (Optional, JPG/PNG, Max 4MB)</label>
-                <input type="file" name="image" accept=".jpg,.jpeg,.png" class="w-full p-3 bg-[#FAF6F4] border border-[#D5CBBF] rounded-xl">
+                <label class="block text-[#333] font-bold mb-2 mt-4">Replace Image (Optional)</label>
+                
+                <div class="relative border-2 border-dashed border-[#A5C3AE] rounded-xl p-8 text-center hover:bg-gray-50 transition group cursor-pointer" onclick="document.getElementById('activity-image').click()">
+                    <div class="flex flex-col items-center justify-center space-y-3">
+                        <div class="bg-[#e4efe7] p-3 rounded-full text-[#4A5D4E] group-hover:scale-110 transition">
+                            <i data-lucide="upload-cloud" class="w-8 h-8"></i>
+                        </div>
+                        <div class="text-[#6B5D53]">
+                            <span class="font-bold text-[#5E7363]">Click to upload</span> or drag and drop new image
+                        </div>
+                        <p class="text-xs text-gray-500">JPG or PNG (MAX. 4MB)</p>
+                    </div>
+                    <input type="file" name="image" id="activity-image" accept=".jpg,.jpeg,.png" class="hidden" onchange="previewImage(this)">
+                </div>
+                <div id="image-preview-container" class="mt-4 hidden">
+                    <p class="text-sm font-bold text-gray-600 mb-2">New Image Preview:</p>
+                    <img id="image-preview" src="#" alt="Preview" class="w-full max-w-sm rounded-xl border border-gray-200 shadow-sm">
+                </div>
             </div>
         @else
             <div class="mb-6">
                 <label class="block text-[#333] font-bold mb-2">Content</label>
                 <input type="hidden" name="content" id="activity-content">
-                <div id="editor-container" class="bg-white rounded-xl h-64">{!! old('content', $blog->content) !!}</div>
+                <div id="editor-container" class="bg-white rounded-xl min-h-[300px]">{!! old('content', $blog->content) !!}</div>
             </div>
         @endif
 
@@ -69,9 +85,13 @@
 </div>
 @endsection
 
-@if($blog->type !== 'painting')
 @section('scripts')
+@if($blog->type !== 'painting')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<style>
+    #editor-container { min-height: 300px; }
+    .ql-editor { min-height: 300px; }
+</style>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -79,7 +99,7 @@
             theme: 'snow'
         });
         
-        var form = document.querySelector('form');
+        var form = document.getElementById('edit-activity-form');
         form.onsubmit = function() {
             if (quill.getText().trim().length === 0) {
                 alert('Content is required');
@@ -89,5 +109,26 @@
         };
     });
 </script>
-@endsection
 @endif
+
+<script>
+    function previewImage(input) {
+        const preview = document.getElementById('image-preview');
+        const container = document.getElementById('image-preview-container');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                container.classList.remove('hidden');
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            container.classList.add('hidden');
+        }
+    }
+</script>
+@endsection

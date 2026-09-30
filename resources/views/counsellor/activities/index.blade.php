@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="w-full max-w-6xl mx-auto">
-    @include('admin.nav')
+    @include('counsellor.nav')
 
     <div class="bg-[#efefef] text-[#333] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-[#D5CBBF] pb-4">
@@ -11,28 +11,15 @@
         
         <!-- Tabs -->
         <div class="flex border-b border-[#D5CBBF] mb-6 flex-wrap">
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'pending']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'pending' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Under Review ({{ $counts['pending'] ?? 0 }})</a>
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'approved']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'approved' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Approved ({{ $counts['approved'] ?? 0 }})</a>
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'rejected']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'rejected' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Rejected ({{ $counts['rejected'] ?? 0 }})</a>
+            <a href="{{ route('counsellor.activities', ['type' => $type, 'status' => 'pending']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'pending' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Under Review ({{ $counts['pending'] ?? 0 }})</a>
+            <a href="{{ route('counsellor.activities', ['type' => $type, 'status' => 'approved']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'approved' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Approved ({{ $counts['approved'] ?? 0 }})</a>
+            <a href="{{ route('counsellor.activities', ['type' => $type, 'status' => 'rejected']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'rejected' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Rejected ({{ $counts['rejected'] ?? 0 }})</a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($activities as $activity)
                 <div class="bg-white p-5 rounded-xl border border-[#D5CBBF] flex flex-col relative group">
-                    <div class="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <a href="{{ route('reading.edit', $activity) }}" class="p-1.5 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition" title="Edit">
-                            <i data-lucide="edit" class="w-4 h-4"></i>
-                        </a>
-                        <form action="{{ route('reading.destroy', $activity) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this activity?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="p-1.5 bg-red-50 text-red-600 rounded hover:bg-red-100 transition" title="Delete">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </form>
-                    </div>
-                    
-                    <h4 class="font-bold text-lg mb-2 pr-12">{{ $activity->title }}</h4>
+                    <h4 class="font-bold text-lg mb-2">{{ $activity->title }}</h4>
                     <p class="text-xs text-[#8C7D70] mb-4">By {{ $activity->user->name ?? 'Unknown' }} on {{ $activity->created_at->format('M d, Y') }}</p>
                     
                     @if($type === 'painting' && $activity->image)
@@ -43,21 +30,21 @@
                     
                     <div class="mt-auto flex space-x-2 pt-4 border-t border-[#F3EFE9]">
                         @if($status === 'pending')
-                            <form action="{{ route('admin.activities.approve', $activity) }}" method="POST" class="w-1/2">
+                            <form action="{{ route('counsellor.activities.approve', $activity) }}" method="POST" class="w-1/2">
                                 @csrf
                                 <button type="submit" class="w-full py-2 bg-[#d7ecd7] hover:bg-[#c2e1c2] text-[#2c522c] rounded-lg text-sm font-bold transition">Approve</button>
                             </form>
-                            <form action="{{ route('admin.activities.reject', $activity) }}" method="POST" class="w-1/2">
+                            <form action="{{ route('counsellor.activities.reject', $activity) }}" method="POST" class="w-1/2">
                                 @csrf
                                 <button type="submit" class="w-full py-2 bg-[#fbe0e0] hover:bg-[#fad0d0] text-[#8a2222] rounded-lg text-sm font-bold transition">Reject</button>
                             </form>
                         @elseif($status === 'approved')
-                            <form action="{{ route('admin.activities.reject', $activity) }}" method="POST" class="w-full">
+                            <form action="{{ route('counsellor.activities.reject', $activity) }}" method="POST" class="w-full">
                                 @csrf
                                 <button type="submit" class="w-full py-2 bg-[#fbe0e0] hover:bg-[#fad0d0] text-[#8a2222] rounded-lg text-sm font-bold transition">Reject</button>
                             </form>
                         @elseif($status === 'rejected')
-                            <form action="{{ route('admin.activities.approve', $activity) }}" method="POST" class="w-full">
+                            <form action="{{ route('counsellor.activities.approve', $activity) }}" method="POST" class="w-full">
                                 @csrf
                                 <button type="submit" class="w-full py-2 bg-[#d7ecd7] hover:bg-[#c2e1c2] text-[#2c522c] rounded-lg text-sm font-bold transition">Approve</button>
                             </form>

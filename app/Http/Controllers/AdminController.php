@@ -26,7 +26,27 @@ class AdminController extends Controller
         
         $bookings = $query->get();
         $counsellors = User::where('role', 'counsellor')->get();
-        return view('admin.dashboard', compact('bookings', 'counsellors'));
+        
+        $stats = [
+            'blog_total' => Blog::where('type', 'blog')->count(),
+            'blog_pending' => Blog::where('type', 'blog')->where('status', 'pending')->count(),
+            'blog_approved' => Blog::where('type', 'blog')->where('status', 'approved')->count(),
+            'blog_rejected' => Blog::where('type', 'blog')->where('status', 'rejected')->count(),
+            
+            'painting_total' => Blog::where('type', 'painting')->count(),
+            'painting_pending' => Blog::where('type', 'painting')->where('status', 'pending')->count(),
+            'painting_approved' => Blog::where('type', 'painting')->where('status', 'approved')->count(),
+            'painting_rejected' => Blog::where('type', 'painting')->where('status', 'rejected')->count(),
+            
+            'poetry_total' => Blog::where('type', 'poetry')->count(),
+            'poetry_pending' => Blog::where('type', 'poetry')->where('status', 'pending')->count(),
+            'poetry_approved' => Blog::where('type', 'poetry')->where('status', 'approved')->count(),
+            'poetry_rejected' => Blog::where('type', 'poetry')->where('status', 'rejected')->count(),
+            
+            'questions_total' => \App\Models\Question::count(),
+        ];
+        
+        return view('admin.dashboard', compact('bookings', 'counsellors', 'stats'));
     }
 
     public function counsellorsIndex()
@@ -263,5 +283,24 @@ class AdminController extends Controller
         $testimonial->is_active = !$testimonial->is_active;
         $testimonial->save();
         return back()->with('success', 'Testimonial status updated.');
+    }
+
+    public function forumIndex()
+    {
+        $questions = \App\Models\Question::with(['user', 'answers.user'])->latest()->get();
+        return view('admin.forum.index', compact('questions'));
+    }
+
+    public function destroyQuestion(\App\Models\Question $question)
+    {
+        $question->answers()->delete();
+        $question->delete();
+        return back()->with('success', 'Question and all its answers deleted successfully.');
+    }
+
+    public function destroyAnswer(\App\Models\Answer $answer)
+    {
+        $answer->delete();
+        return back()->with('success', 'Answer deleted successfully.');
     }
 }

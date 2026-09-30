@@ -16,9 +16,9 @@
             <div class="mb-5">
                 <label class="block text-gray-700 text-sm font-bold mb-2">What do you want to share?</label>
                 <select name="type" id="activity-type" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#A5C3AE]" onchange="toggleActivityFields()">
-                    <option value="blog">Blog</option>
-                    <option value="painting">Painting</option>
-                    <option value="poetry">Poetry</option>
+                    <option value="blog" {{ request('type', 'blog') == 'blog' ? 'selected' : '' }}>Blog</option>
+                    <option value="painting" {{ request('type') == 'painting' ? 'selected' : '' }}>Painting</option>
+                    <option value="poetry" {{ request('type') == 'poetry' ? 'selected' : '' }}>Poetry</option>
                 </select>
             </div>
             
@@ -39,13 +39,23 @@
             
             <div class="mb-5" id="image-field-container" style="display: none;">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Upload Image (JPG/PNG, Max 4MB)</label>
-                <input type="file" name="image" id="activity-image" accept=".jpg,.jpeg,.png" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                <div class="flex items-center justify-center w-full">
+                    <label for="activity-image" class="flex flex-col items-center justify-center w-full h-48 border-2 border-[#A5C3AE] border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition relative overflow-hidden group">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                            <i data-lucide="upload" class="w-10 h-10 text-[#5E7363] mb-3 opacity-70 group-hover:opacity-100 transition"></i>
+                            <p class="mb-2 text-sm text-gray-500"><span class="font-bold text-[#5E7363]">Click to upload</span></p>
+                            <p class="text-xs text-gray-500">JPG, PNG (MAX. 4MB)</p>
+                        </div>
+                        <img id="image-preview" src="#" alt="Preview" class="hidden absolute inset-0 w-full h-full object-cover">
+                        <input type="file" name="image" id="activity-image" accept=".jpg,.jpeg,.png" class="hidden" onchange="previewImage(this)">
+                    </label>
+                </div>
             </div>
             
             <div class="mb-8" id="content-field-container">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Content</label>
                 <input type="hidden" name="content" id="activity-content">
-                <div id="editor-container" class="bg-white rounded-xl h-64 font-sans text-base"></div>
+                <div id="editor-container" class="bg-white rounded-xl min-h-[300px] font-sans text-base"></div>
             </div>
             
             <button type="submit" class="w-full bg-[#5E7363] text-white font-bold py-3.5 rounded-xl hover:bg-[#4A5D4E] transition shadow-sm text-lg">Submit</button>
@@ -56,6 +66,10 @@
 
 @section('scripts')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<style>
+    #editor-container { min-height: 300px; }
+    .ql-editor { min-height: 300px; }
+</style>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
     var quill;
@@ -101,6 +115,27 @@
             categoryContainer.style.display = 'none';
             imageContainer.style.display = 'none';
             imageInput.required = false;
+        }
+    }
+
+    function previewImage(input) {
+        var preview = document.getElementById('image-preview');
+        var placeholder = document.getElementById('upload-placeholder');
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.src = '#';
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
         }
     }
 </script>

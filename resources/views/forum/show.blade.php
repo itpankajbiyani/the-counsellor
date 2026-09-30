@@ -9,12 +9,10 @@
 
         <!-- Original Question -->
         <div class="bg-white p-8 md:p-10 rounded-3xl shadow-md border-t-4 border-t-[#5E7363] mb-12">
-            <h1 class="serif text-3xl font-bold text-[#2d3a37] mb-6">{{ $question->title }}</h1>
-            <div class="mb-8 pb-6 border-b border-gray-100">
-                <div>
-                    <div class="text-[#4A5D4E] font-bold">{{ $question->user->name }}</div>
-                    <div class="text-xs text-[#8C7D70]">Asked on {{ $question->created_at->format('M d, Y') }}</div>
-                </div>
+            <h1 class="serif text-3xl font-bold text-[#2d3a37] mb-4">{{ $question->title }}</h1>
+            <div class="pt-4 border-t border-[#F3EFE9] flex items-center gap-3 flex-wrap">
+                <span class="text-[#4A5D4E] font-bold text-sm">{{ $question->user->name }}</span>
+                <span class="text-xs text-[#8C7D70]">Asked on {{ $question->created_at->format('M d, Y') }}</span>
             </div>
         </div>
 
@@ -31,7 +29,7 @@
         <div class="mb-12 ml-6 md:ml-12">
             <div class="space-y-4">
                 @forelse($question->answers as $answer)
-                    <div class="flex gap-4 border-l-4 border-[#D5CBBF] pl-4 md:pl-6 p-4 rounded-r-xl {{ $loop->even ? 'bg-white shadow-sm' : 'bg-[#E2D6C5] shadow-sm' }}">
+                    <div class="flex gap-4 border-l-4 border-[#D5CBBF] pl-4 md:pl-6 p-4 rounded-r-xl {{ $loop->even ? 'bg-white shadow-sm' : 'bg-[#FAF6F4] shadow-sm' }}">
                         
                         <!-- Comment Content -->
                         <div class="flex-grow">

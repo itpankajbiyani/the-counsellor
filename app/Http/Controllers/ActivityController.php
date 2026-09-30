@@ -26,7 +26,7 @@ class ActivityController extends Controller
             });
         }
         
-        $activities = $query->latest()->get();
+        $activities = $query->latest()->paginate(12);
         $categories = \App\Models\BlogCategory::where('is_active', true)->orderBy('name')->get();
         
         return view('reading_corner.index', compact('activities', 'categories'))->with('type', 'blog');
@@ -34,13 +34,13 @@ class ActivityController extends Controller
 
     public function paintings()
     {
-        $activities = Blog::where('type', 'painting')->where('status', 'approved')->where('is_active', true)->latest()->get();
+        $activities = Blog::where('type', 'painting')->where('status', 'approved')->where('is_active', true)->latest()->paginate(12);
         return view('reading_corner.index', compact('activities'))->with('type', 'painting');
     }
 
     public function poetry()
     {
-        $activities = Blog::where('type', 'poetry')->where('status', 'approved')->where('is_active', true)->latest()->get();
+        $activities = Blog::where('type', 'poetry')->where('status', 'approved')->where('is_active', true)->latest()->paginate(12);
         return view('reading_corner.index', compact('activities'))->with('type', 'poetry');
     }
 
@@ -83,15 +83,15 @@ class ActivityController extends Controller
         $blog->save();
 
         $message = $blog->status === 'approved' 
-            ? ucfirst($request->type) . ' posted successfully.' 
-            : ucfirst($request->type) . ' submitted successfully. It will be visible after admin approval.';
+            ? ucfirst($request->type) . ' published successfully.' 
+            : ucfirst($request->type) . ' submitted successfully. It will be published after admin approval.';
 
         return back()->with('success', $message);
     }
 
     public function destroy(Blog $blog)
     {
-        if ($blog->user_id !== Auth::id()) {
+        if ($blog->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
             abort(403);
         }
 
@@ -105,7 +105,7 @@ class ActivityController extends Controller
 
     public function edit(Blog $blog)
     {
-        if ($blog->user_id !== Auth::id()) {
+        if ($blog->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
             abort(403);
         }
         
@@ -115,7 +115,7 @@ class ActivityController extends Controller
 
     public function update(Request $request, Blog $blog)
     {
-        if ($blog->user_id !== Auth::id()) {
+        if ($blog->user_id !== Auth::id() && Auth::user()->role !== 'admin') {
             abort(403);
         }
 
@@ -130,6 +130,11 @@ class ActivityController extends Controller
         $blog->category = $request->category;
         $blog->content = $request->content;
 
+        if (in_array(Auth::user()->role, ['user', 'counsellor'])) {
+            $blog->status = 'pending';
+            $blog->is_active = false;
+        }
+
         if ($request->hasFile('image')) {
             // Delete old image
             if ($blog->image && file_exists(public_path('images/activities/' . $blog->image))) {
@@ -143,15 +148,40 @@ class ActivityController extends Controller
 
         $blog->save();
 
-        return redirect()->route('user.dashboard')->with('success', 'Activity updated successfully.');
+        $message = in_array(Auth::user()->role, ['user', 'counsellor'])
+            ? 'Activity updated successfully. It will be published after admin approval.'
+            : 'Activity updated successfully.';
+
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('success', $message);
+        } elseif (Auth::user()->role === 'counsellor') {
+            return redirect()->route('counsellor.dashboard')->with('success', $message);
+        }
+
+        return redirect()->route('user.dashboard')->with('success', $message);
     }
 
     // Admin Methods
-    public function adminIndex()
+    public function adminIndex($type)
     {
-        $pendingActivities = Blog::where('status', 'pending')->latest()->get();
-        $approvedActivities = Blog::where('status', 'approved')->whereNotNull('user_id')->latest()->get();
-        return view('admin.activities.index', compact('pendingActivities', 'approvedActivities'));
+        if (!in_array($type, ['blog', 'painting', 'poetry'])) abort(404);
+        
+        $status = request('status', 'pending');
+        
+        $counts = [
+            'pending' => Blog::where('type', $type)->where('status', 'pending')->whereNotNull('user_id')->count(),
+            'approved' => Blog::where('type', $type)->where('status', 'approved')->whereNotNull('user_id')->count(),
+            'rejected' => Blog::where('type', $type)->where('status', 'rejected')->whereNotNull('user_id')->count(),
+        ];
+        
+        $activities = Blog::with('user')
+            ->where('type', $type)
+            ->where('status', $status)
+            ->whereNotNull('user_id')
+            ->latest()
+            ->paginate(12);
+            
+        return view('admin.activities.index', compact('activities', 'type', 'status', 'counts'));
     }
 
     public function approve(Blog $blog)

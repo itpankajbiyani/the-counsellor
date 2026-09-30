@@ -4,6 +4,70 @@
 <div class="w-full max-w-6xl mx-auto">
     @include('admin.nav')
 
+    <div class="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Blogs Stat -->
+        <div class="bg-white p-6 rounded-xl border border-[#D5CBBF] shadow-sm transition block group">
+            <div class="flex items-center justify-between mb-2">
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'pending']) }}" class="text-[#8C7D70] font-bold uppercase tracking-wider text-xs hover:text-[#5a7b6b] transition">Blogs</a>
+                <div class="bg-[#FAF6F4] p-2 rounded-lg text-[#5a7b6b]">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['blog_total'] }}</div>
+            <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['blog_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['blog_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['blog_rejected'] }} Rejected</a>
+            </div>
+        </div>
+
+        <!-- Paintings Stat -->
+        <div class="bg-white p-6 rounded-xl border border-[#D5CBBF] shadow-sm transition block group">
+            <div class="flex items-center justify-between mb-2">
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'pending']) }}" class="text-[#8C7D70] font-bold uppercase tracking-wider text-xs hover:text-[#5a7b6b] transition">Paintings</a>
+                <div class="bg-[#FAF6F4] p-2 rounded-lg text-[#5a7b6b]">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['painting_total'] }}</div>
+            <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['painting_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['painting_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['painting_rejected'] }} Rejected</a>
+            </div>
+        </div>
+
+        <!-- Poetry Stat -->
+        <div class="bg-white p-6 rounded-xl border border-[#D5CBBF] shadow-sm transition block group">
+            <div class="flex items-center justify-between mb-2">
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'pending']) }}" class="text-[#8C7D70] font-bold uppercase tracking-wider text-xs hover:text-[#5a7b6b] transition">Poetry</a>
+                <div class="bg-[#FAF6F4] p-2 rounded-lg text-[#5a7b6b]">
+                    <i data-lucide="feather" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['poetry_total'] }}</div>
+            <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['poetry_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['poetry_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['poetry_rejected'] }} Rejected</a>
+            </div>
+        </div>
+
+        <!-- Forum Questions Stat -->
+        <a href="{{ route('admin.forum.index') }}" class="bg-white p-6 rounded-xl border border-[#D5CBBF] shadow-sm hover:shadow-md transition block group">
+            <div class="flex items-center justify-between mb-2">
+                <h4 class="text-[#8C7D70] font-bold uppercase tracking-wider text-xs group-hover:text-[#5a7b6b]">Forum Questions</h4>
+                <div class="bg-[#FAF6F4] p-2 rounded-lg text-[#5a7b6b]">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </div>
+            </div>
+            <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['questions_total'] }}</div>
+            <div class="text-xs font-medium text-gray-500 mt-2">
+                View all Q&A
+            </div>
+        </a>
+    </div>
+
     <div class="bg-[#efefef] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6">
             <h3 class="text-2xl font-bold text-[#333]">All Platform Bookings</h3>

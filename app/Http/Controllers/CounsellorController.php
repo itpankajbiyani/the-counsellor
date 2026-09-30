@@ -23,6 +23,10 @@ class CounsellorController extends Controller
             $query->where('status', $request->status);
         }
         
+        if ($request->has('date') && $request->date != '') {
+            $query->where('date', $request->date);
+        }
+        
         $bookings = $query->get();
         return view('counsellor.bookings', compact('bookings'));
     }
@@ -135,5 +139,41 @@ class CounsellorController extends Controller
         $booking->update(['status' => 'completed']);
         
         return back()->with('success', 'Booking marked as completed.');
+    }
+
+    public function activities($type)
+    {
+        if (!in_array($type, ['blog', 'painting', 'poetry'])) abort(404);
+        
+        $status = request('status', 'pending'); // default to pending
+        
+        $counts = [
+            'pending' => \App\Models\Blog::where('type', $type)->where('status', 'pending')->count(),
+            'approved' => \App\Models\Blog::where('type', $type)->where('status', 'approved')->count(),
+            'rejected' => \App\Models\Blog::where('type', $type)->where('status', 'rejected')->count(),
+        ];
+        
+        $activities = \App\Models\Blog::with('user')
+            ->where('type', $type)
+            ->where('status', $status)
+            ->latest()
+            ->paginate(12);
+            
+        return view('counsellor.activities.index', compact('activities', 'type', 'status', 'counts'));
+    }
+
+    public function approveActivity(\App\Models\Blog $blog)
+    {
+        $blog->status = 'approved';
+        $blog->is_active = true;
+        $blog->save();
+        return back()->with('success', 'Activity approved.');
+    }
+
+    public function rejectActivity(\App\Models\Blog $blog)
+    {
+        $blog->status = 'rejected';
+        $blog->save();
+        return back()->with('success', 'Activity rejected.');
     }
 }

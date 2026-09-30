@@ -63,9 +63,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/faqs/{faq}/toggle', [\App\Http\Controllers\Admin\FaqController::class, 'toggle'])->name('faqs.toggle');
     
     // Admin Activity Approvals
-    Route::get('/activities', [\App\Http\Controllers\ActivityController::class, 'adminIndex'])->name('activities.index');
+    Route::get('/activities/{type}', [\App\Http\Controllers\ActivityController::class, 'adminIndex'])->name('activities.index');
     Route::post('/activities/{blog}/approve', [\App\Http\Controllers\ActivityController::class, 'approve'])->name('activities.approve');
     Route::post('/activities/{blog}/reject', [\App\Http\Controllers\ActivityController::class, 'reject'])->name('activities.reject');
+    
+    // Admin Forum Management
+    Route::get('/forum', [\App\Http\Controllers\AdminController::class, 'forumIndex'])->name('forum.index');
+    Route::delete('/forum/question/{question}', [\App\Http\Controllers\AdminController::class, 'destroyQuestion'])->name('forum.destroyQuestion');
+    Route::delete('/forum/answer/{answer}', [\App\Http\Controllers\AdminController::class, 'destroyAnswer'])->name('forum.destroyAnswer');
 });
 
 // Counsellor routes
@@ -81,6 +86,11 @@ Route::middleware(['auth', 'role:counsellor'])->prefix('counsellor')->name('coun
     Route::post('/bookings/{booking}/accept', [CounsellorController::class, 'acceptBooking'])->name('bookings.accept');
     Route::post('/bookings/{booking}/cancel', [CounsellorController::class, 'cancelBooking'])->name('bookings.cancel');
     Route::post('/bookings/{booking}/complete', [CounsellorController::class, 'completeBooking'])->name('bookings.complete');
+    
+    // Manage Activities
+    Route::get('/activities/{type}', [CounsellorController::class, 'activities'])->name('activities');
+    Route::post('/activities/{blog}/approve', [CounsellorController::class, 'approveActivity'])->name('activities.approve');
+    Route::post('/activities/{blog}/reject', [CounsellorController::class, 'rejectActivity'])->name('activities.reject');
 });
 
 // Forum authenticated routes

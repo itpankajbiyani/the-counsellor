@@ -10,7 +10,7 @@
             </div>
             
             @auth
-                <a href="{{ route('reading.create') }}" class="bg-[#5E7363] text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wide hover:bg-[#4A5D4E] transition shadow-sm flex items-center">
+                <a href="{{ route('reading.create', ['type' => $type]) }}" class="bg-[#5E7363] text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wide hover:bg-[#4A5D4E] transition shadow-sm flex items-center">
                     <i data-lucide="plus" class="w-4 h-4 mr-2"></i> Submit {{ ucfirst($type) }}
                 </a>
             @else
