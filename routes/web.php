@@ -32,6 +32,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/counsellors', [AdminController::class, 'counsellorsIndex'])->name('counsellors.index');
+    Route::get('/counsellors/create', [AdminController::class, 'createCounsellor'])->name('counsellors.create');
     Route::post('/counsellors', [AdminController::class, 'storeCounsellor'])->name('counsellors.store');
     Route::get('/counsellors/{user}/edit', [AdminController::class, 'editCounsellor'])->name('counsellors.edit');
     Route::put('/counsellors/{user}', [AdminController::class, 'updateCounsellor'])->name('counsellors.update');
@@ -56,7 +57,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::delete('/testimonials/{testimonial}', [AdminController::class, 'destroyTestimonial'])->name('testimonials.destroy');
     Route::delete('/testimonials/{testimonial}', [AdminController::class, 'destroyTestimonial'])->name('testimonials.destroy');
     Route::post('/testimonials/{testimonial}/toggle', [AdminController::class, 'toggleTestimonial'])->name('testimonials.toggle');
-    Route::resource('blog-categories', \App\Http\Controllers\BlogCategoryController::class)->except(['create', 'show', 'edit']);
+    Route::resource('blog-categories', \App\Http\Controllers\BlogCategoryController::class)->except(['show']);
     Route::post('/blog-categories/{blog_category}/toggle', [\App\Http\Controllers\BlogCategoryController::class, 'toggle'])->name('blog-categories.toggle');
     
     Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class);

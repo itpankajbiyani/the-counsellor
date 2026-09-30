@@ -143,7 +143,7 @@ class VisitorController extends Controller
     public function dashboard()
     {
         $bookings = Booking::with('counsellor')->where('user_id', Auth::id())->orderBy('date', 'desc')->get();
-        $activities = \App\Models\Blog::where('user_id', Auth::id())->whereIn('type', ['blog', 'painting', 'poetry'])->latest()->get();
+        $activities = \App\Models\Blog::where('user_id', Auth::id())->whereIn('type', ['blog', 'painting', 'poetry'])->latest()->paginate(10);
         $categories = \App\Models\BlogCategory::where('is_active', true)->orderBy('name')->get();
         return view('user.dashboard', compact('bookings', 'activities', 'categories'));
     }

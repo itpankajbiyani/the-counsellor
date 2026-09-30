@@ -135,6 +135,10 @@
             </div>
         @endforelse
     </div>
+    
+    <div class="mt-8">
+        {{ $activities->appends(request()->query())->links() }}
+    </div>
 </div>
 
 

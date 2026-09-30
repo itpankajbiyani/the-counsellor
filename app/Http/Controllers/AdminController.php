@@ -51,8 +51,13 @@ class AdminController extends Controller
 
     public function counsellorsIndex()
     {
-        $counsellors = User::where('role', 'counsellor')->get();
+        $counsellors = User::where('role', 'counsellor')->orderBy('name')->get();
         return view('admin.counsellors.index', compact('counsellors'));
+    }
+
+    public function createCounsellor()
+    {
+        return view('admin.counsellors.create');
     }
 
     public function storeCounsellor(Request $request)
@@ -84,7 +89,7 @@ class AdminController extends Controller
             'role' => 'counsellor',
         ]);
 
-        return back()->with('success', 'Counsellor added successfully.');
+        return redirect()->route('admin.counsellors.index')->with('success', 'Counsellor added successfully.');
     }
 
     public function editCounsellor(User $user)

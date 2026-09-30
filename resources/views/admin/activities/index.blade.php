@@ -10,10 +10,10 @@
         </div>
         
         <!-- Tabs -->
-        <div class="flex border-b border-[#D5CBBF] mb-6 flex-wrap">
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'pending']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'pending' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Under Review ({{ $counts['pending'] ?? 0 }})</a>
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'approved']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'approved' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Approved ({{ $counts['approved'] ?? 0 }})</a>
-            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'rejected']) }}" class="py-2 px-4 border-b-2 font-bold {{ $status === 'rejected' ? 'border-[#5a7b6b] text-[#5a7b6b]' : 'border-transparent text-gray-500 hover:text-[#5a7b6b]' }}">Rejected ({{ $counts['rejected'] ?? 0 }})</a>
+        <div class="flex space-x-3 mb-8 flex-wrap">
+            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'pending']) }}" class="py-2 px-5 rounded-lg font-bold transition {{ $status === 'pending' ? 'bg-[#5a7b6b] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">Under Review ({{ $counts['pending'] ?? 0 }})</a>
+            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'approved']) }}" class="py-2 px-5 rounded-lg font-bold transition {{ $status === 'approved' ? 'bg-[#5a7b6b] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">Approved ({{ $counts['approved'] ?? 0 }})</a>
+            <a href="{{ route('admin.activities.index', ['type' => $type, 'status' => 'rejected']) }}" class="py-2 px-5 rounded-lg font-bold transition {{ $status === 'rejected' ? 'bg-[#5a7b6b] text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">Rejected ({{ $counts['rejected'] ?? 0 }})</a>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -73,6 +73,10 @@
                     <p class="text-sm text-[#8C7D70]">There are no items in the "{{ $status }}" list.</p>
                 </div>
             @endforelse
+        </div>
+        
+        <div class="mt-6">
+            {{ $activities->appends(request()->query())->links() }}
         </div>
     </div>
 </div>

@@ -18,12 +18,12 @@
         Manage FAQs
     </a>
     <a href="{{ route('admin.activities.index', ['type' => 'blog']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'blog' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
-        Manage User Blogs
+        Manage Blogs
     </a>
     <a href="{{ route('admin.activities.index', ['type' => 'painting']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'painting' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
-        Manage User Paintings
+        Manage Paintings
     </a>
     <a href="{{ route('admin.activities.index', ['type' => 'poetry']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'poetry' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
-        Manage User Poetry
+        Manage Poetry
     </a>
 </div>

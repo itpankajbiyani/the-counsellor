@@ -13,13 +13,23 @@ class BlogCategoryController extends Controller
         return view('admin.blog_categories.index', compact('categories'));
     }
 
+    public function create()
+    {
+        return view('admin.blog_categories.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:blog_categories',
         ]);
         BlogCategory::create(['name' => $request->name]);
-        return back()->with('success', 'Category added.');
+        return redirect()->route('admin.blog-categories.index')->with('success', 'Category added.');
+    }
+
+    public function edit(BlogCategory $blog_category)
+    {
+        return view('admin.blog_categories.edit', compact('blog_category'));
     }
 
     public function update(Request $request, BlogCategory $blog_category)
@@ -28,7 +38,7 @@ class BlogCategoryController extends Controller
             'name' => 'required|string|max:255|unique:blog_categories,name,' . $blog_category->id,
         ]);
         $blog_category->update(['name' => $request->name]);
-        return back()->with('success', 'Category updated.');
+        return redirect()->route('admin.blog-categories.index')->with('success', 'Category updated.');
     }
 
     public function destroy(BlogCategory $blog_category)
