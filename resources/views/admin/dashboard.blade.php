@@ -104,7 +104,7 @@
                 </thead>
                 <tbody>
                     @forelse($bookings as $booking)
-                        <tr class="border-b border-[#C5BBAF] hover:bg-[#EAE2D6] transition even:bg-[#FAF6F4] odd:bg-white">
+                        <tr class="border-b border-[#C5BBAF] hover:bg-[#EAE2D6] transition {{ $loop->even ? 'bg-[#FAF6F4]' : 'bg-white' }}">
                             <td class="p-3 whitespace-nowrap">
                                 <strong class="text-[#333]">{{ \Carbon\Carbon::parse($booking->date)->format('M d, Y') }}</strong><br>
                                 <span class="text-[#555]">{{ \Carbon\Carbon::parse($booking->start_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($booking->end_time)->format('g:i A') }}</span>

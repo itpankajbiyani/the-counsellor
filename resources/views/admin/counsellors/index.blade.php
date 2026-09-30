@@ -4,15 +4,16 @@
 <div class="w-full max-w-6xl mx-auto">
     @include('admin.nav')
 
-    <div class="flex justify-between items-center mb-6 mt-6">
-        <h3 class="text-2xl font-bold text-[#333]">Manage Counsellors</h3>
-        <a href="{{ route('admin.counsellors.create') }}" class="px-6 py-2 bg-[#5a7b6b] text-white font-bold rounded-lg shadow hover:bg-[#4a6758] transition">Add New Counsellor</a>
-    </div>
+    <div class="bg-[#efefef] text-[#333] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <div class="flex justify-between items-center mb-6 border-b border-[#D5CBBF] pb-4">
+            <h3 class="text-2xl font-bold text-[#333]">Manage Counsellors</h3>
+            <a href="{{ route('admin.counsellors.create') }}" class="px-6 py-2 bg-[#5a7b6b] text-white font-bold rounded-lg shadow hover:bg-[#4a6758] transition">Add New Counsellor</a>
+        </div>
 
     <div class="w-full">
         <div class="space-y-4">
             @forelse($counsellors as $counsellor)
-                <div class="p-4 bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg flex justify-between items-center">
+                <div class="p-4 {{ $loop->even ? 'bg-[#FAF6F4]' : 'bg-white' }} border border-[#D5CBBF] rounded-lg flex justify-between items-center">
                     <div class="flex items-center space-x-4">
                         @if($counsellor->image)
                             <img src="{{ asset('images/counsellors/' . $counsellor->image) }}" class="w-12 h-12 object-cover rounded-full border border-[#D5CBBF] shadow-sm">
@@ -52,6 +53,7 @@
                 <div class="p-6 text-center text-[#555] bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg">No counsellors found.</div>
             @endforelse
         </div>
+    </div>
     </div>
 </div>
 @endsection

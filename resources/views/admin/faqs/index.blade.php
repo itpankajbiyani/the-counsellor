@@ -4,15 +4,16 @@
 <div class="w-full max-w-6xl mx-auto">
     @include('admin.nav')
 
-    <div class="flex justify-between items-center mb-6">
-        <h3 class="text-2xl font-bold text-[#333]">Manage FAQs</h3>
-        <a href="{{ route('admin.faqs.create') }}" class="px-6 py-2 bg-[#5a7b6b] text-white font-bold rounded-lg shadow hover:bg-[#4a6758] transition">Add New FAQ</a>
-    </div>
+    <div class="bg-[#efefef] text-[#333] p-6 rounded-2xl shadow-lg border border-[#D5CBBF]">
+        <div class="flex justify-between items-center mb-6 border-b border-[#D5CBBF] pb-4">
+            <h3 class="text-2xl font-bold text-[#333]">Manage FAQs</h3>
+            <a href="{{ route('admin.faqs.create') }}" class="px-6 py-2 bg-[#5a7b6b] text-white font-bold rounded-lg shadow hover:bg-[#4a6758] transition">Add New FAQ</a>
+        </div>
 
     <div class="w-full">
         <div class="space-y-4">
                 @forelse($faqs as $faq)
-                    <div class="p-4 bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg flex justify-between items-center">
+                    <div class="p-4 {{ $loop->even ? 'bg-[#FAF6F4]' : 'bg-white' }} border border-[#D5CBBF] rounded-lg flex justify-between items-center">
                         <div>
                             <div>
                                 <div class="font-bold text-[#333] text-lg">
@@ -45,6 +46,7 @@
                     <div class="p-6 text-center text-[#555] bg-[#FAF6F4] border border-[#D5CBBF] rounded-lg">No FAQs added yet.</div>
                 @endforelse
             </div>
+        </div>
     </div>
 </div>
 @endsection
