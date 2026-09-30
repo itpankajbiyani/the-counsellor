@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-full max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-[#D5CBBF] mt-8 mb-16">
+<div class="w-full max-w-6xl mx-auto">
+    @include('admin.nav')
+
+    <div class="w-full max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-[#D5CBBF] mt-8 mb-16">
     <div class="flex items-center mb-8 border-b border-[#C5BBAF] pb-4">
         <a href="{{ route('admin.blog-categories.index') }}" class="mr-4 text-[#8C7D70] hover:text-[#5E7363] transition">
             <i data-lucide="arrow-left" class="w-5 h-5"></i>
@@ -32,5 +35,6 @@
             <button type="submit" class="px-6 py-2.5 bg-[#5E7363] text-white font-bold rounded-xl hover:bg-[#4A5D4E] transition shadow">Save Category</button>
         </div>
     </form>
+    </div>
 </div>
 @endsection

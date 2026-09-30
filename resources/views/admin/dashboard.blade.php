@@ -15,9 +15,9 @@
             </div>
             <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['blog_total'] }}</div>
             <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
-                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['blog_pending'] }} Under Review</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['blog_approved'] }} Approved</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['blog_rejected'] }} Rejected</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'pending']) }}" class="text-gray-900 bg-yellow-400 px-3 py-1 rounded shadow hover:bg-yellow-500 transition">{{ $stats['blog_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'approved']) }}" class="text-white bg-green-500 px-3 py-1 rounded shadow hover:bg-green-600 transition">{{ $stats['blog_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'blog', 'status' => 'rejected']) }}" class="text-white bg-red-500 px-3 py-1 rounded shadow hover:bg-red-600 transition">{{ $stats['blog_rejected'] }} Rejected</a>
             </div>
         </div>
 
@@ -31,9 +31,9 @@
             </div>
             <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['painting_total'] }}</div>
             <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
-                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['painting_pending'] }} Under Review</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['painting_approved'] }} Approved</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['painting_rejected'] }} Rejected</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'pending']) }}" class="text-gray-900 bg-yellow-400 px-3 py-1 rounded shadow hover:bg-yellow-500 transition">{{ $stats['painting_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'approved']) }}" class="text-white bg-green-500 px-3 py-1 rounded shadow hover:bg-green-600 transition">{{ $stats['painting_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'painting', 'status' => 'rejected']) }}" class="text-white bg-red-500 px-3 py-1 rounded shadow hover:bg-red-600 transition">{{ $stats['painting_rejected'] }} Rejected</a>
             </div>
         </div>
 
@@ -47,9 +47,9 @@
             </div>
             <div class="text-3xl font-bold text-[#333] mb-2">{{ $stats['poetry_total'] }}</div>
             <div class="flex flex-wrap gap-2 text-[10px] font-bold mt-3">
-                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'pending']) }}" class="text-yellow-600 bg-yellow-50 px-2 py-1 rounded hover:bg-yellow-100 transition">{{ $stats['poetry_pending'] }} Under Review</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'approved']) }}" class="text-green-600 bg-green-50 px-2 py-1 rounded hover:bg-green-100 transition">{{ $stats['poetry_approved'] }} Approved</a>
-                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'rejected']) }}" class="text-red-600 bg-red-50 px-2 py-1 rounded hover:bg-red-100 transition">{{ $stats['poetry_rejected'] }} Rejected</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'pending']) }}" class="text-gray-900 bg-yellow-400 px-3 py-1 rounded shadow hover:bg-yellow-500 transition">{{ $stats['poetry_pending'] }} Under Review</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'approved']) }}" class="text-white bg-green-500 px-3 py-1 rounded shadow hover:bg-green-600 transition">{{ $stats['poetry_approved'] }} Approved</a>
+                <a href="{{ route('admin.activities.index', ['type' => 'poetry', 'status' => 'rejected']) }}" class="text-white bg-red-500 px-3 py-1 rounded shadow hover:bg-red-600 transition">{{ $stats['poetry_rejected'] }} Rejected</a>
             </div>
         </div>
 
@@ -104,7 +104,7 @@
                 </thead>
                 <tbody>
                     @forelse($bookings as $booking)
-                        <tr class="border-b border-[#C5BBAF] hover:bg-[#F2EAE1] transition">
+                        <tr class="border-b border-[#C5BBAF] hover:bg-[#EAE2D6] transition even:bg-[#FAF6F4] odd:bg-white">
                             <td class="p-3 whitespace-nowrap">
                                 <strong class="text-[#333]">{{ \Carbon\Carbon::parse($booking->date)->format('M d, Y') }}</strong><br>
                                 <span class="text-[#555]">{{ \Carbon\Carbon::parse($booking->start_time)->format('g:i A') }} - {{ \Carbon\Carbon::parse($booking->end_time)->format('g:i A') }}</span>

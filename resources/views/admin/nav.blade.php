@@ -9,13 +9,16 @@
         Manage Blogs
     </a> -->
     <a href="{{ route('admin.blog-categories.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.blog-categories.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
-        Blog Categories
+        Manage Blog Categories
     </a>
     <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.testimonials.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage Testimonials
     </a>
     <a href="{{ route('admin.faqs.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.faqs.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage FAQs
+    </a>
+    <a href="{{ route('admin.forum.index') }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.forum.*') ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
+        Forum Manager
     </a>
     <a href="{{ route('admin.activities.index', ['type' => 'blog']) }}" class="px-6 py-2 rounded-lg font-bold transition {{ request()->routeIs('admin.activities.*') && request()->route('type') == 'blog' ? 'bg-[#5a7b6b] text-white' : 'bg-[#FAF6F4] text-[#5a7b6b] border border-[#D5CBBF] hover:bg-[#efefef]' }}">
         Manage Blogs

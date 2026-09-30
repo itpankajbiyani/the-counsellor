@@ -1,13 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w-full max-w-4xl mx-auto">
-    <div class="flex items-center space-x-4 mb-6">
-        <a href="{{ route('admin.testimonials.index') }}" class="text-[#5a7b6b] hover:underline font-bold">← Back to Testimonials</a>
-        <h2 class="text-3xl font-bold text-[#333]">Add New Testimonial</h2>
-    </div>
+<div class="w-full max-w-6xl mx-auto">
+    @include('admin.nav')
 
-    <div class="bg-[#efefef] p-8 rounded-2xl shadow-lg border border-[#D5CBBF]">
+    <div class="w-full max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-[#D5CBBF] mt-8 mb-16">
+        <div class="flex items-center mb-8 border-b border-[#C5BBAF] pb-4">
+            <a href="{{ route('admin.testimonials.index') }}" class="mr-4 text-[#8C7D70] hover:text-[#5E7363] transition">
+                <i data-lucide="arrow-left" class="w-5 h-5"></i>
+            </a>
+            <div>
+                <h2 class="text-3xl font-bold text-[#333]">Add New Testimonial</h2>
+            </div>
+        </div>
         <form id="testimonial-form" action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
@@ -24,7 +29,10 @@
                 <div id="editor" class="bg-white text-[#333] mb-2" style="min-height: 150px;"></div>
             </div>
 
-            <button type="submit" class="w-full py-3 font-bold text-white bg-[#5a7b6b] hover:bg-[#4a6758] rounded shadow text-lg">Add Testimonial</button>
+            <div class="flex justify-end gap-4 mt-8">
+                <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-2.5 bg-gray-200 text-[#333] font-bold rounded-xl hover:bg-gray-300 transition">Cancel</a>
+                <button type="submit" class="px-6 py-2.5 bg-[#5E7363] text-white font-bold rounded-xl hover:bg-[#4A5D4E] transition shadow">Add Testimonial</button>
+            </div>
         </form>
     </div>
 </div>
