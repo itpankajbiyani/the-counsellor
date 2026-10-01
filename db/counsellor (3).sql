@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 30, 2026 at 08:11 AM
+-- Generation Time: Oct 01, 2026 at 04:37 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -466,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 ('Zz4VsKMZEPew8s13kzoigulCio8y8zpihMKXFFSz', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiI0emVVS1dPVVNrSnpkVktWWlkxbEZ2c0hmQ0ZHWjlmMXpXb25qVXpGIiwiX3ByZXZpb3VzIjp7InVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdDo4MDAwXC9jb3Vuc2VsbG9yLWxvZ2luIiwicm91dGUiOiJjb3Vuc2VsbG9yLmxvZ2luIn0sIl9mbGFzaCI6eyJvbGQiOltdLCJuZXciOltdfSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjIsInBhc3N3b3JkX2hhc2hfd2ViIjoiNDJjNTMwODc3MjliZDBmNjg5MTU3ZDBkODBhY2QzNDBiYzM5MGZlMTBmMjQ3NWQwYTMxYmM5ZWJjMWI2NDc2YiJ9', 1790750669),
-('dl8UyBgO572uppiN5StChgSgecCi8baEv3tjfKPN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJ2aFIwRlZnWDNMbFVrSFRQZ1YyZ0M3aXNYZm1YQnBaS2JkTnVvblI2IiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2FkbWluXC9jb3Vuc2VsbG9ycyIsInJvdXRlIjoiYWRtaW4uY291bnNlbGxvcnMuaW5kZXgifSwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjEsInBhc3N3b3JkX2hhc2hfd2ViIjoiYTI5ZDUwMDJmMmExOTUwMzkxZDMwMDBlNzQ5OGEzOTRhYjQ3MWU5NWExMDg1NzM5Nzg2MTFmOTgwM2Y3YzNkOSJ9', 1790755861),
+('6PnXz9j0ItuHOMLJevXyhu2EXU36yqyKYy51ti8S', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJxSUZtMUV5Wkx1VFR1TVh1c1BPNEZYblViWUNuZTRJZTNqenkzM3FJIiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDAiLCJyb3V0ZSI6ImhvbWUifX0=', 1790760815),
 ('QAFm4XinaNiPG8gef5G5zwkMDX3gwULnTw52oDAj', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36', 'eyJfdG9rZW4iOiJEdEFPMGo0ZFhxYk5EZFY1TDB2T0dib3Q3ejZMRjdnZ1pwbHp1bVg3IiwiX2ZsYXNoIjp7Im9sZCI6W10sIm5ldyI6W119LCJfcHJldmlvdXMiOnsidXJsIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL3VzZXIiLCJyb3V0ZSI6InVzZXIuZGFzaGJvYXJkIn0sIm90cF9zZW50X2F0IjoxNzkwNzUyNjc0LCJ1YXRfb3RwIjoiMzM1OTQwIiwibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiOjd9', 1790754760);
 
 -- --------------------------------------------------------
